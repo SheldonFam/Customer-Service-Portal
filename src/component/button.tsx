@@ -1,24 +1,21 @@
-import clsx from "clsx";
+import { clsx } from "clsx";
 import * as React from "react";
 
 export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   shape?: "round" | "circle" | "none";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   variant?: "solid" | "twoTone" | "plain" | "default";
-  block?: boolean;
-  active?: boolean;
+  children?: React.ReactNode;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
-      children,
+      children = "Button",
       size = "md",
       shape = "round",
       variant = "solid",
-      block,
       className,
-      active,
       disabled,
       ...rest
     },
@@ -58,84 +55,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       return sizeClass;
     };
 
-    const disabledClass = "opacity-50 cursor-not-allowed";
-
-    const solidColor = () => {
-      const btn = {
-        bgColor: active ? `bg-green-700` : `bg-green-600`,
-        textColor: "text-white",
-        hoverColor: active ? "" : `hover:bg-green-500`,
-        activeColor: `active:bg-green-700`,
-      };
-      return getBtnColor(btn);
-    };
-
-    const twoToneColor = () => {
-      const btn = {
-        bgColor: active
-          ? `bg-green-200 dark:bg-green-50`
-          : `bg-green-50 dark:bg-green-500 dark:bg-opacity-20`,
-        textColor: `text-primary-600 dark:text-primary-50`,
-        hoverColor: active
-          ? ""
-          : `hover:bg-green-100 dark:hover:bg-green-500 dark:hover:bg-opacity-30`,
-        activeColor: `active:bg-green-200 dark:active:bg-green-500 dark:active:bg-opacity-40`,
-      };
-      return getBtnColor(btn);
-    };
-
-    const defaultColor = () => {
-      const btn = {
-        bgColor: active
-          ? `bg-gray-100 border border-gray-300 dark:bg-gray-500 dark:border-gray-500`
-          : `bg-white border border-gray-300 dark:bg-gray-700 dark:border-gray-700`,
-        textColor: `text-gray-600 dark:text-gray-100`,
-        hoverColor: active ? "" : `hover:bg-gray-50 dark:hover:bg-gray-600`,
-        activeColor: `active:bg-gray-100 dark:active:bg-gray-500 dark:active:border-gray-500`,
-      };
-      return getBtnColor(btn);
-    };
-
-    const plainColor = () => {
-      const btn = {
-        bgColor: active
-          ? `bg-gray-100 dark:bg-gray-500`
-          : "bg-transparent border border-transparent",
-        textColor: `text-gray-600 dark:text-gray-100`,
-        hoverColor: active ? "" : `hover:bg-gray-50 dark:hover:bg-gray-600`,
-        activeColor: `active:bg-gray-100 dark:active:bg-gray-500 dark:active:border-gray-500`,
-      };
-      return getBtnColor(btn);
-    };
-
-    const getBtnColor = ({
-      bgColor,
-      hoverColor,
-      activeColor,
-      textColor,
-    }: {
-      bgColor: string;
-      hoverColor: string;
-      activeColor: string;
-      textColor: string;
-    }) => {
-      return `${bgColor} ${
-        disabled ? disabledClass : hoverColor + " " + activeColor
-      } ${textColor}`;
-    };
-
     const btnColor = () => {
       switch (variant) {
         case "solid":
-          return solidColor();
+          return "bg-green-700 text-white hover:bg-green-500 active:bg-green-700";
         case "twoTone":
-          return twoToneColor();
+          return "bg-green-200 text-green-700 hover:bg-green-100 active:bg-green-200";
         case "plain":
-          return plainColor();
+          return "bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100";
         default:
-          return defaultColor();
+          return "bg-gray-100 text-gray-600 hover:bg-gray-50 active:bg-gray-100";
       }
     };
+
     return (
       <button
         ref={ref}
@@ -148,13 +80,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             circle: "rounded-full",
             none: "rounded-none",
           }[shape],
-          getButtonSize(),
-          block && "w-full"
+          getButtonSize()
         )}
         {...rest}
         disabled={disabled}
       >
-        Button
+        {children}
       </button>
     );
   }
