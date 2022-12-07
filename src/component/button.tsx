@@ -10,7 +10,7 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
-    { children, size = "md", shape, variant = "default", ...rest },
+    { children, size = "md", shape = "round", variant = "default", ...rest },
     forwardedRef
   ) {
     return (

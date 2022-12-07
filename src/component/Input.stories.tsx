@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Input } from "./inputfield";
+import { Input } from "./input";
 
 export default {
   title: "Input",
@@ -9,13 +9,12 @@ export default {
 } as ComponentMeta<typeof Input>;
 
 const Template: ComponentStory<typeof Input> = (props) => (
-  <Input {...props}>Button</Input>
+  <Input {...props}></Input>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  name: "",
-  label: "",
-  value: "",
+  label: "Label",
   placeholder: "",
+  value: "",
 };
