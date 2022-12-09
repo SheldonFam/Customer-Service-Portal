@@ -1,27 +1,27 @@
 import clsx from "clsx";
 import * as React from "react";
 
-export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
+export interface TextInputProps
+  extends React.ComponentPropsWithoutRef<"input"> {
   label: string;
   name: string;
   value: string;
-  placeholder?: string;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  function Input({ label, name, value, placeholder, ...rest }, forwardedRef) {
+export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+  function TextInput({ label, className, ...rest }, forwardedRef) {
+    const autoId = React.useId();
+    const appliedId = rest.id || rest.name || autoId;
     return (
       <div>
-        <label>{label}</label>
+        <label htmlFor={appliedId}>{label}</label>
         <input
           type="text"
-          name={name}
-          id={name}
+          id={appliedId}
           className={clsx(
-            "mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            "mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+            className
           )}
-          value={value}
-          placeholder={placeholder}
           ref={forwardedRef}
           {...rest}
         />
