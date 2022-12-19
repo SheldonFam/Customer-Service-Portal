@@ -4,7 +4,7 @@ import * as React from "react";
 export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   shape?: "round" | "circle" | "none";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
-  variant?: "primary" | "secondary" | "white" | "default";
+  variant?: "primary" | "secondary" | "white" | "default" | "danger";
   children?: React.ReactNode;
 }
 
@@ -18,7 +18,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={forwardedRef}
         type="button"
         className={clsx(
-          "mx-4 font-medium focus:outline-none flex items-center justify-center",
+          "font-medium focus:outline-none flex items-center justify-center",
           {
             xl: " px-6 py-3 text-lg",
             lg: " px-4 py-2 text-lg",
@@ -31,7 +31,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               "bg-green-600 text-white hover:bg-green-700 active:bg-green-700",
             secondary:
               "bg-green-100 text-green-700 hover:bg-green-200 active:bg-green-200",
-            white: "bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100",
+            white:
+              "bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100 border",
+            danger: "bg-red-600 text-white hover:bg-red-700 active:bg-red-700",
             default:
               "bg-gray-100 text-gray-600 hover:bg-gray-50 active:bg-gray-100",
           }[variant],

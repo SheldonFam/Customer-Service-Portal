@@ -1,6 +1,5 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
 import { TextInput } from "./input";
 
 export default {
@@ -23,4 +22,10 @@ WithID.args = {
   label: "Label",
   id: "123xyz",
   value: "",
+};
+
+export const Date = Template.bind({});
+Date.args = {
+  label: "Date",
+  type: "date",
 };

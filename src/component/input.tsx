@@ -4,7 +4,6 @@ import * as React from "react";
 export interface TextInputProps
   extends React.ComponentPropsWithoutRef<"input"> {
   label: string;
-  // name: string;
 }
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(

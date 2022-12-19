@@ -13,6 +13,7 @@
     "build-static-webapp": "expo build:web"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.2",
     "clsx": "^1.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
