@@ -24,12 +24,12 @@ export default {
   component: Dialog,
 } as ComponentMeta<typeof Dialog>;
 
-const Template: ComponentStory<typeof Dialog> = (props) => {
+const Template: ComponentStory<typeof Dialog> = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open</Button>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open}>
         <p>Content</p>
         <button onClick={() => setOpen(false)}>Close</button>
         <CloseButton />

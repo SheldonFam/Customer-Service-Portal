@@ -1,57 +1,105 @@
 import { Button } from "./component/button";
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Dialog } from "./component/dialog";
-import { TextInput } from "./component/input";
+import { Input } from "./component/input";
 import { TextArea } from "./component/textarea";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 function App() {
-  // const buttonref = useRef<HTMLButtonElement>(null);
-  // console.log(buttonref);
-  // const result = (
-  //   <div className="flex items-center justify-center my-2">
-  //     <Button size="xs" variant="primary" shape="none">
-  //       primary
-  //     </Button>
-  //     <Button
-  //       size="sm"
-  //       variant="secondary"
-  //       shape="round"
-  //       onClick={() => {
-  //         console.log(buttonref);
-  //         buttonref.current?.focus();
-  //       }}
-  //     >
-  //       secondary
-  //     </Button>
-  //     <Button size="md" variant="white" shape="circle">
-  //       white
-  //     </Button>
-  //     <Button size="lg" variant="default" shape="round">
-  //       default
-  //     </Button>
-  //     <Button size="xl" variant="primary" ref={buttonref}>
-  //       button
-  //     </Button>
-  //   </div>
-  // );
-  // console.log(result);
-  // return result;
   const [open, setOpen] = useState(false);
+  const initialData = { name: "", date: "", actions: "", work: "" };
+  const [data, setData] = useState(initialData);
+  const { name, date, actions, work } = data;
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleTextAreaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(data);
+    setData(initialData);
+    setOpen(false);
+  };
+
   return (
-    <div className="px-14 py-12 w-full max-w-xl h-full m-auto ">
+    <div className="px-14 py-12 w-full max-w-2xl h-full m-auto">
       <div className="flex items-center justify-between mb-2">
         <h1 className="mx-2">Reports</h1>
         <Button variant="primary" shape="circle" onClick={() => setOpen(true)}>
           New Report
         </Button>
       </div>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <TextInput label="Date" type="date"></TextInput>
-        <TextInput label="Customer Name"></TextInput>
-        <TextInput label="Description of Work"></TextInput>
-        <TextArea label="Actios Performed"></TextArea>
-        <button onClick={() => setOpen(false)}>Close</button>
+      <Dialog open={open}>
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Date"
+            type="date"
+            onChange={handleInputChange}
+            name={"date"}
+            value={date}
+            required={true}
+          ></Input>
+          <Input
+            label="Customer Name"
+            onChange={handleInputChange}
+            name={"name"}
+            value={name}
+            required={true}
+          ></Input>
+          <Input
+            label="Description of Work"
+            onChange={handleInputChange}
+            name={"work"}
+            value={work}
+            required={true}
+          ></Input>
+          <TextArea
+            label="Actions Performed"
+            onChange={handleTextAreaChange}
+            name={"actions"}
+            value={actions}
+            required={true}
+          ></TextArea>
+          <div className="flex justify-end mt-2 gap-2">
+            <Button
+              onClick={() => {
+                setOpen(false);
+                setData(initialData);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+          </div>
+        </form>
       </Dialog>
+      <div>
+        <ul className="border mb-4">
+          <li className="flex justify-between px-2 py-4 items-center">
+            <span>RN10001</span>
+            <span>Customer Name</span>
+            <span>25-12-2022</span>
+            <span>
+              <MdKeyboardArrowRight />
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

@@ -1,24 +1,24 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { TextInput } from "./input";
+import { Input } from "./input";
 
 export default {
-  title: "TextInput",
-  component: TextInput,
-} as ComponentMeta<typeof TextInput>;
+  title: "Input",
+  component: Input,
+} as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof TextInput> = (props) => (
-  <TextInput {...props}></TextInput>
+const Template: ComponentStory<typeof Input> = (props) => (
+  <Input {...props}></Input>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const TextInput = Template.bind({});
+TextInput.args = {
   label: "Label",
   value: "",
 };
 
-export const WithID = Template.bind({});
-WithID.args = {
+export const TextInputWithID = Template.bind({});
+TextInputWithID.args = {
   label: "Label",
   id: "123xyz",
   value: "",

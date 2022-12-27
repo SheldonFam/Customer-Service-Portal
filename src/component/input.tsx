@@ -1,13 +1,12 @@
 import clsx from "clsx";
 import * as React from "react";
 
-export interface TextInputProps
-  extends React.ComponentPropsWithoutRef<"input"> {
+export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   label: string;
 }
 
-export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  function TextInput({ label, className, ...rest }, forwardedRef) {
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  function Input({ label, className, ...rest }, forwardedRef) {
     const autoId = React.useId();
     const appliedId = rest.id || rest.name || autoId;
     return (
