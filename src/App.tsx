@@ -1,16 +1,17 @@
 import { Button } from "./component/button";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Dialog } from "./component/dialog";
 import { Input } from "./component/input";
 import { TextArea } from "./component/textarea";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { ReportList } from "./component/reportlist";
 
 function App() {
   const [open, setOpen] = useState(false);
   const initialData = { name: "", date: "", actions: "", work: "" };
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState<Reports>(initialData);
   const { name, date, actions, work } = data;
 
+  //For Input Submit function
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData((prevData) => ({
       ...prevData,
@@ -32,6 +33,13 @@ function App() {
     console.log(data);
     setData(initialData);
     setOpen(false);
+    addReport(data);
+  };
+
+  //For Report List
+  const [reports, setReports] = useState<Array<Reports>>([]);
+  const addReport: AddReport = (newReport) => {
+    setReports([...reports, newReport]);
   };
 
   return (
@@ -88,18 +96,7 @@ function App() {
           </div>
         </form>
       </Dialog>
-      <div>
-        <ul className="border mb-4">
-          <li className="flex justify-between px-2 py-4 items-center">
-            <span>RN10001</span>
-            <span>Customer Name</span>
-            <span>25-12-2022</span>
-            <span>
-              <MdKeyboardArrowRight />
-            </span>
-          </li>
-        </ul>
-      </div>
+      <ReportList reports={reports} />
     </div>
   );
 }
