@@ -18,7 +18,6 @@ import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Dialog } from "./dialog";
 import { Button } from "./button";
-import { CloseButton } from "./close-button";
 export default {
   title: "Dialog",
   component: Dialog,
@@ -32,7 +31,6 @@ const Template: ComponentStory<typeof Dialog> = () => {
       <Dialog open={open}>
         <p>Content</p>
         <button onClick={() => setOpen(false)}>Close</button>
-        <CloseButton />
       </Dialog>
     </>
   );
