@@ -5,8 +5,18 @@ import { Input } from "../component/input";
 import { TextArea } from "../component/textarea";
 import { ReportList } from "../component/reportlist";
 
-export const HomePages = () => {
+interface ReportDataProps {
+  addReport: AddReport;
+  reportList: Array<Reports>;
+}
+
+export const HomePages: React.FC<ReportDataProps> = ({
+  addReport,
+  reportList,
+}) => {
+  //For modal open and close
   const [open, setOpen] = useState(false);
+  //Form submit initial Data
   const initialData = {
     id: "",
     name: "",
@@ -15,7 +25,7 @@ export const HomePages = () => {
     work: "",
   };
   const [data, setData] = useState<Reports>(initialData);
-  const { name, date, actions, work } = data;
+  const { id, name, date, actions, work } = data;
 
   //For Input Submit function
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,23 +50,6 @@ export const HomePages = () => {
     setData(initialData);
     setOpen(false);
     addReport(data);
-  };
-
-  //For Report List
-  const DefaultList = [
-    {
-      id: "10001",
-      name: "Customer Name",
-      work: "Work",
-      date: "Date",
-      actions: "Actions",
-    },
-  ];
-  const [reports, setReports] = useState<Array<Reports>>(DefaultList);
-  const addReport: AddReport = (newReport) => {
-    const id = "RE10000";
-    newReport.id = id + "1";
-    setReports([...reports, newReport]);
   };
 
   return (
@@ -113,7 +106,7 @@ export const HomePages = () => {
           </div>
         </form>
       </Dialog>
-      <ReportList reports={reports} />
+      <ReportList reports={reportList} />
     </div>
   );
 };
