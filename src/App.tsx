@@ -1,6 +1,6 @@
 import { HomePages } from "./pages/Home";
 import { ReportPages } from "./pages/Report";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
@@ -8,13 +8,14 @@ function App() {
   //Initial Report Data
   const DefaultList = [
     {
-      id: "",
+      id: "abc12345",
       name: "Customer Name",
       work: "Work",
       date: "Date",
       actions: "Actions",
     },
   ];
+
   const [reports, setReports] = useState<Array<Reports>>(DefaultList);
 
   //After sumbit from home pages

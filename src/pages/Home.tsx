@@ -47,9 +47,9 @@ export const HomePages: React.FC<ReportDataProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(data);
-    setData(initialData);
     setOpen(false);
     addReport(data);
+    setData(initialData);
   };
 
   return (
@@ -62,47 +62,49 @@ export const HomePages: React.FC<ReportDataProps> = ({
       </div>
       <Dialog open={open} title={"Create Report"}>
         <form onSubmit={handleSubmit}>
-          <Input
-            label="Date"
-            type="date"
-            onChange={handleInputChange}
-            name={"date"}
-            value={date}
-            required={true}
-          ></Input>
-          <Input
-            label="Customer Name"
-            onChange={handleInputChange}
-            name={"name"}
-            value={name}
-            required={true}
-          ></Input>
-          <Input
-            label="Description of Work"
-            onChange={handleInputChange}
-            name={"work"}
-            value={work}
-            required={true}
-          ></Input>
-          <TextArea
-            label="Actions Performed"
-            onChange={handleTextAreaChange}
-            name={"actions"}
-            value={actions}
-            required={true}
-          ></TextArea>
-          <div className="flex justify-end mt-2 gap-2">
-            <Button
-              onClick={() => {
-                setOpen(false);
-                setData(initialData);
-              }}
-            >
-              Cancel
-            </Button>
-            <Button variant="primary" type="submit">
-              Save
-            </Button>
+          <div key={id} id={id}>
+            <Input
+              label="Date"
+              type="date"
+              onChange={handleInputChange}
+              name={"date"}
+              value={date}
+              required={true}
+            ></Input>
+            <Input
+              label="Customer Name"
+              onChange={handleInputChange}
+              name={"name"}
+              value={name}
+              required={true}
+            ></Input>
+            <Input
+              label="Description of Work"
+              onChange={handleInputChange}
+              name={"work"}
+              value={work}
+              required={true}
+            ></Input>
+            <TextArea
+              label="Actions Performed"
+              onChange={handleTextAreaChange}
+              name={"actions"}
+              value={actions}
+              required={true}
+            ></TextArea>
+            <div className="flex justify-end mt-2 gap-2">
+              <Button
+                onClick={() => {
+                  setOpen(false);
+                  setData(initialData);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+            </div>
           </div>
         </form>
       </Dialog>
