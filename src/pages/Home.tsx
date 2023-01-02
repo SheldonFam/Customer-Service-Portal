@@ -6,7 +6,7 @@ import { TextArea } from "../component/textarea";
 import { ReportList } from "../component/reportlist";
 
 interface ReportDataProps {
-  addReport: AddReport;
+  addReport: (newReport: Reports) => void;
   reportList: Array<Reports>;
 }
 
@@ -62,7 +62,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
       </div>
       <Dialog open={open} title={"Create Report"}>
         <form onSubmit={handleSubmit}>
-          <div key={id} id={id}>
+          <div id={id}>
             <Input
               label="Date"
               type="date"
@@ -73,6 +73,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
             ></Input>
             <Input
               label="Customer Name"
+              type="text"
               onChange={handleInputChange}
               name={"name"}
               value={name}
@@ -80,6 +81,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
             ></Input>
             <Input
               label="Description of Work"
+              type="text"
               onChange={handleInputChange}
               name={"work"}
               value={work}

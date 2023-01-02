@@ -1,11 +1,21 @@
 import { Button } from "../component/button";
 import { useNavigate, useParams } from "react-router-dom";
+import { Dialog } from "../component/dialog";
+import { useState } from "react";
+import { Input } from "../component/input";
+import { TextArea } from "../component/textarea";
 
 interface ReportDataProps {
   reportData: Array<Reports>;
+  updateReports: (updateData: Reports) => void;
+  deleteReports: (updateData: Reports) => void;
 }
 
-export const ReportPages: React.FC<ReportDataProps> = ({ reportData }) => {
+export const ReportPages: React.FC<ReportDataProps> = ({
+  reportData,
+  updateReports,
+  deleteReports,
+}) => {
   const navigate = useNavigate();
 
   const reportId = useParams().reportId;
@@ -17,6 +27,47 @@ export const ReportPages: React.FC<ReportDataProps> = ({ reportData }) => {
     navigate("/");
   };
 
+  const [open, setOpen] = useState(false);
+
+  const inData = {
+    id: data?.id,
+    name: data?.name,
+    work: data?.work,
+    date: data?.date,
+    actions: data?.actions,
+  };
+  const [editReport, setEditReport] = useState<Reports>(inData);
+
+  const handleEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditReport((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+    console.log(event.target.value);
+  };
+
+  const handleEditTextArea = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setEditReport((prevData) => ({
+      ...prevData,
+      [event.target.name]: [event.target.value],
+    }));
+    console.log(event.target.value);
+  };
+
+  //after edit then submit form
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setOpen(false);
+    updateReports(editReport);
+  };
+
+  const handleDelete = () => {
+    returnToHome();
+    deleteReports(editReport);
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
       <div className="flex flex-row justify-between mb-2">
@@ -24,11 +75,63 @@ export const ReportPages: React.FC<ReportDataProps> = ({ reportData }) => {
           <Button onClick={returnToHome}>Go Back</Button>
         </div>
         <div className="flex flex-row gap-2">
-          <Button variant={"primary"}>Edit</Button>
-          <Button variant={"danger"}>Delete</Button>
+          <Button variant={"primary"} onClick={() => setOpen(true)}>
+            Edit
+          </Button>
+          <Button variant={"danger"} onClick={handleDelete}>
+            Delete
+          </Button>
+        </div>
+        <div>
+          <Dialog open={open} title={"Create Report"}>
+            <form onSubmit={handleSubmit}>
+              <Input
+                label="Date"
+                type="date"
+                name={"date"}
+                value={editReport.date}
+                onChange={handleEditInput}
+                required={true}
+              ></Input>
+              <Input
+                label="Customer Name"
+                type="text"
+                name={"name"}
+                value={editReport.name}
+                onChange={handleEditInput}
+                required={true}
+              ></Input>
+              <Input
+                label="Description of Work"
+                type="text"
+                name={"work"}
+                value={editReport.work}
+                onChange={handleEditInput}
+                required={true}
+              ></Input>
+              <TextArea
+                label="Actions Performed"
+                name={"actions"}
+                value={editReport.actions}
+                onChange={handleEditTextArea}
+                required={true}
+              ></TextArea>
+              <div className="flex justify-end mt-2 gap-2">
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button variant="primary" type="submit">
+                  Update
+                </Button>
+              </div>
+            </form>
+          </Dialog>
         </div>
       </div>
-
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:px-6">
           <div>Report</div>

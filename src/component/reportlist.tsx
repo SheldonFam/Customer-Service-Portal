@@ -10,8 +10,8 @@ export const ReportList: React.FC<ReportListProps> = ({ reports }) => {
   return (
     <>
       <ul>
-        {reports.map((report) => (
-          <Link to={`/report/${report.id}`} key={report.id} id={report.id}>
+        {reports.map((report, index) => (
+          <Link to={`/report/${report.id}`} key={index} id={report.id}>
             <li className="flex justify-between px-2 py-4 items-center border mb-4 flex-1 rounded-lg">
               <span>RN10001</span>
               <span>{report.name}</span>

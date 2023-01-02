@@ -11,7 +11,7 @@ function App() {
       id: "abc12345",
       name: "Customer Name",
       work: "Work",
-      date: "Date",
+      date: "2022-01-01",
       actions: "Actions",
     },
   ];
@@ -26,6 +26,20 @@ function App() {
     setReports([...reports, newReport]);
   };
 
+  const updateReports = (updateData: Reports) => {
+    setReports(
+      reports.map((report) =>
+        report.id === updateData.id ? updateData : report
+      )
+    );
+    console.log("updated success");
+  };
+
+  const deleteReports = (updateData: Reports) => {
+    console.log("delete");
+    setReports(reports.filter((report) => report.id !== updateData.id));
+  };
+
   return (
     <>
       <Routes>
@@ -35,7 +49,13 @@ function App() {
         />
         <Route
           path={`/report/:reportId`}
-          element={<ReportPages reportData={reports} />}
+          element={
+            <ReportPages
+              reportData={reports}
+              updateReports={updateReports}
+              deleteReports={deleteReports}
+            />
+          }
         />
       </Routes>
     </>
