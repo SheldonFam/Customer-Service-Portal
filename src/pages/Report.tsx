@@ -18,7 +18,9 @@ export const ReportPages: React.FC<ReportDataProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  //reportID :string | undefined???
   const reportId = useParams().reportId;
+  console.log(reportId);
 
   const data = reportData.find((data) => data.id === reportId);
   console.log(data);
@@ -36,6 +38,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
     date: data?.date,
     actions: data?.actions,
   };
+
   const [editReport, setEditReport] = useState<Reports>(inData);
 
   const handleEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +46,6 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       ...prevData,
       [event.target.name]: event.target.value,
     }));
-    console.log(event.target.value);
   };
 
   const handleEditTextArea = (
@@ -53,7 +55,6 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       ...prevData,
       [event.target.name]: [event.target.value],
     }));
-    console.log(event.target.value);
   };
 
   //after edit then submit form
@@ -69,7 +70,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8 min-h-screen">
       <div className="flex flex-row justify-between mb-2">
         <div>
           <Button onClick={returnToHome}>Go Back</Button>
@@ -81,55 +82,6 @@ export const ReportPages: React.FC<ReportDataProps> = ({
           <Button variant={"danger"} onClick={handleDelete}>
             Delete
           </Button>
-        </div>
-        <div>
-          <Dialog open={open} title={"Create Report"}>
-            <form onSubmit={handleSubmit}>
-              <Input
-                label="Date"
-                type="date"
-                name={"date"}
-                value={editReport.date}
-                onChange={handleEditInput}
-                required={true}
-              ></Input>
-              <Input
-                label="Customer Name"
-                type="text"
-                name={"name"}
-                value={editReport.name}
-                onChange={handleEditInput}
-                required={true}
-              ></Input>
-              <Input
-                label="Description of Work"
-                type="text"
-                name={"work"}
-                value={editReport.work}
-                onChange={handleEditInput}
-                required={true}
-              ></Input>
-              <TextArea
-                label="Actions Performed"
-                name={"actions"}
-                value={editReport.actions}
-                onChange={handleEditTextArea}
-                required={true}
-              ></TextArea>
-              <div className="flex justify-end mt-2 gap-2">
-                <Button
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button variant="primary" type="submit">
-                  Update
-                </Button>
-              </div>
-            </form>
-          </Dialog>
         </div>
       </div>
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
@@ -143,6 +95,72 @@ export const ReportPages: React.FC<ReportDataProps> = ({
           <div>Actions Performed: {data?.actions}</div>
         </div>
       </div>
+      <div>
+        <Dialog open={open} title={"Edit Report"}>
+          <form onSubmit={handleSubmit} id={editReport.id}>
+            <Input
+              label="Date"
+              type="date"
+              name={"date"}
+              value={editReport.date}
+              onChange={handleEditInput}
+              required={true}
+            ></Input>
+            <Input
+              label="Customer Name"
+              type="text"
+              name={"name"}
+              value={editReport.name}
+              onChange={handleEditInput}
+              required={true}
+            ></Input>
+            <Input
+              label="Description of Work"
+              type="text"
+              name={"work"}
+              value={editReport.work}
+              onChange={handleEditInput}
+              required={true}
+            ></Input>
+            <TextArea
+              label="Actions Performed"
+              name={"actions"}
+              value={editReport.actions}
+              onChange={handleEditTextArea}
+              required={true}
+            ></TextArea>
+            <div className="flex justify-end mt-2 gap-2">
+              <Button
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button variant="primary" type="submit">
+                Update
+              </Button>
+            </div>
+          </form>
+        </Dialog>
+      </div>
+      {/*Delete Report Modal? */}
+      {/* <div>
+        <Dialog open={open} title={"Delete Report?"}>
+          <div className="flex justify-end mt-2 gap-2">
+            <Button
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button variant="danger" type="submit">
+              Yes
+            </Button>
+          </div>
+        </Dialog>
+      </div> */}
     </div>
   );
 };

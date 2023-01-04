@@ -53,8 +53,8 @@ export const HomePages: React.FC<ReportDataProps> = ({
   };
 
   return (
-    <div className="px-14 py-12 w-full max-w-2xl h-full m-auto">
-      <div className="flex items-center justify-between mb-2">
+    <div className="px-14 py-12 w-full max-w-2xl h-full m-auto min-h-screen">
+      <div className="flex items-center justify-between mb-10">
         <h1 className="mx-2">Reports</h1>
         <Button variant="primary" shape="circle" onClick={() => setOpen(true)}>
           New Report

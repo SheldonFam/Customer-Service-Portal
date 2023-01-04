@@ -36,8 +36,8 @@ function App() {
   };
 
   const deleteReports = (updateData: Reports) => {
-    console.log("delete");
     setReports(reports.filter((report) => report.id !== updateData.id));
+    console.log("successful delete");
   };
 
   return (
