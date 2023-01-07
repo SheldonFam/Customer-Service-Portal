@@ -1,10 +1,17 @@
 import { HomePages } from "./pages/Home";
 import { ReportPages } from "./pages/Report";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 function App() {
+  useEffect(() => {
+    async function fetchReports() {
+      await fetch("http//localhost:8000/reports");
+    }
+    fetchReports();
+  }, []);
+
   //Initial Report Data
   const DefaultList = [
     {

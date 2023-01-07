@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
   date: String,
-  customerName: String,
+  name: String,
   work: String,
   actions: String,
 });
 
-module.exports = mongoose.model("Report", reportSchema);
+export const reportData = mongoose.model("Report", reportSchema);

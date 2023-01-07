@@ -10,11 +10,6 @@ interface ReportDataProps {
   reportList: Array<Reports>;
 }
 
-const url = "http://127.0.0.1:5173/api/reports";
-fetch(url)
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-
 export const HomePages: React.FC<ReportDataProps> = ({
   addReport,
   reportList,

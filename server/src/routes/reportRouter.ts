@@ -1,13 +1,12 @@
-const express = require("express");
-
-const router = express.Router();
-
-const {
+import express from "express";
+import {
   getAllReports,
   createReport,
-  updateReport,
   deleteReport,
-} = require("../controllers/reportController");
+  updateReport,
+} from "../controllers/reportController";
+
+const router = express.Router();
 
 router
   .get("/", getAllReports)
