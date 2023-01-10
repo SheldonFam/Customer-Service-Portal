@@ -1,5 +1,5 @@
 import { Button } from "../component/button";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog } from "../component/dialog";
 import { Input } from "../component/input";
 import { TextArea } from "../component/textarea";
@@ -18,14 +18,14 @@ export const HomePages: React.FC<ReportDataProps> = ({
   const [open, setOpen] = useState(false);
   //Form submit initial Data
   const initialData = {
-    id: "",
+    _id: "",
     name: "",
     date: "",
     actions: "",
     work: "",
   };
   const [data, setData] = useState<Reports>(initialData);
-  const { id, name, date, actions, work } = data;
+  const { _id, name, date, actions, work } = data;
 
   //For Input Submit function
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +62,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
       </div>
       <Dialog open={open} title={"Create Report"}>
         <form onSubmit={handleSubmit}>
-          <div id={id}>
+          <div id={_id}>
             <Input
               label="Date"
               type="date"

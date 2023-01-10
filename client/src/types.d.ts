@@ -1,7 +1,7 @@
 type AddReport = (newReport: Reports) => void;
 
 type Reports = {
-  id: string | undefined;
+  _id: string | undefined;
   name: string | undefined;
   work: string | undefined;
   date: string | undefined;

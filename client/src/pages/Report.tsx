@@ -22,7 +22,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   const reportId = useParams().reportId;
   console.log(reportId);
 
-  const data = reportData.find((data) => data.id === reportId);
+  const data = reportData.find((data) => data._id === reportId);
   console.log(data);
 
   const returnToHome = () => {
@@ -32,7 +32,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   const [open, setOpen] = useState(false);
 
   const inData = {
-    id: data?.id,
+    _id: data?._id,
     name: data?.name,
     work: data?.work,
     date: data?.date,
@@ -97,7 +97,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       </div>
       <div>
         <Dialog open={open} title={"Edit Report"}>
-          <form onSubmit={handleSubmit} id={editReport.id}>
+          <form onSubmit={handleSubmit} id={editReport._id}>
             <Input
               label="Date"
               type="date"

@@ -7,11 +7,12 @@ interface ReportListProps {
 }
 
 export const ReportList: React.FC<ReportListProps> = ({ reports }) => {
+  console.log(reports);
   return (
     <>
       <ul>
         {reports.map((report, index) => (
-          <Link to={`/report/${report.id}`} key={index} id={report.id}>
+          <Link to={`/report/${report._id}`} key={index} id={report._id}>
             <li className="flex justify-between px-2 py-4 items-center border mb-4 flex-1 rounded-lg">
               <span>RN10001</span>
               <span>{report.name}</span>
