@@ -21,26 +21,11 @@ function App() {
   useEffect(() => {
     async function fetchReports() {
       const response = await fetch("http://localhost:8000/reports");
-      console.log(response);
       const newReport = await response.json();
-      console.log(newReport);
       setReports(newReport);
     }
     fetchReports();
   }, []);
-
-  // useEffect(() => {
-  //   async function submitReport() {
-  //     const response = await fetch("http://localhost:8000/reports", {
-  //       method: "POST",
-  //       body: JSON.stringify(reports),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //   }
-  //   submitReport();
-  // }, [reports]);
 
   //After sumbit from home pages
   const addReports = (newReport: Reports) => {
@@ -51,6 +36,25 @@ function App() {
   };
 
   const updateReports = (updateData: Reports) => {
+    async function saveReport() {
+      const response = await fetch(
+        `http://localhost:8000/reports/${updateData._id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            name: updateData.name,
+            work: updateData.work,
+            date: updateData.date,
+            actions: updateData.actions,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.json();
+    }
+    saveReport();
     setReports(
       reports.map((report) =>
         report._id === updateData._id ? updateData : report
@@ -60,6 +64,19 @@ function App() {
   };
 
   const deleteReports = (updateData: Reports) => {
+    async function dReport() {
+      const response = await fetch(
+        `http://localhost:8000/reports/${updateData._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.json();
+    }
+    dReport();
     setReports(reports.filter((report) => report._id !== updateData._id));
     console.log("successful delete");
   };

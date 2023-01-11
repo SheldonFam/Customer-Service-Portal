@@ -1,21 +1,20 @@
-import express from "express";
 import { config } from "dotenv";
-import cors from "cors";
-
 config();
 
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import { connectDB } from "./db/db";
+
 const app = express();
-const PORT = process.env.PORT ?? 8000;
-const bodyParser = require("body-parser");
-// const path = require("path");
-// const staticPath = path.join(__dirname, "./public");
+const PORT = process.env.PORT || 8000;
+const apiRoutes = require("./routes/reportRouter");
 
-const connectDB = require("./db/db");
 connectDB();
-
-app.use(cors({ origin: "*" }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 app.use(express.json());
-app.use("/reports", require("./routes/reportRouter"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use("/reports", apiRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

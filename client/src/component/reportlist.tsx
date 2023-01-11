@@ -7,7 +7,6 @@ interface ReportListProps {
 }
 
 export const ReportList: React.FC<ReportListProps> = ({ reports }) => {
-  console.log(reports);
   return (
     <>
       <ul>

@@ -44,12 +44,24 @@ export const HomePages: React.FC<ReportDataProps> = ({
     }));
   };
 
+  async function submitReport() {
+    const response = await fetch("http://localhost:8000/reports", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(data);
     setOpen(false);
     addReport(data);
     setData(initialData);
+    submitReport();
   };
 
   return (
