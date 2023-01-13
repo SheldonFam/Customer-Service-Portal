@@ -6,8 +6,8 @@ import { TextArea } from "../component/textarea";
 import { ReportList } from "../component/reportlist";
 
 interface ReportDataProps {
-  addReport: (newReport: Reports) => void;
   reportList: Array<Reports>;
+  addReport: (newReport: Reports) => void;
 }
 
 export const HomePages: React.FC<ReportDataProps> = ({
@@ -16,16 +16,24 @@ export const HomePages: React.FC<ReportDataProps> = ({
 }) => {
   //For modal open and close
   const [open, setOpen] = useState(false);
+
+  const [reportNumber, setReportNumber] = useState(10000);
+
   //Form submit initial Data
   const initialData = {
+    report_no: reportNumber,
     _id: "",
     name: "",
     date: "",
     actions: "",
     work: "",
   };
+
   const [data, setData] = useState<Reports>(initialData);
+
   const { _id, name, date, actions, work } = data;
+
+  console.log(data);
 
   //For Input Submit function
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,24 +52,12 @@ export const HomePages: React.FC<ReportDataProps> = ({
     }));
   };
 
-  async function submitReport() {
-    const response = await fetch("http://localhost:8000/reports", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return response.json();
-  }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(data);
     setOpen(false);
+    setReportNumber(reportNumber + 1);
     addReport(data);
     setData(initialData);
-    submitReport();
   };
 
   return (

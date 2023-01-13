@@ -19,11 +19,9 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   const navigate = useNavigate();
 
   //reportID :string | undefined???
-  const reportId = useParams().reportId;
-  console.log(reportId);
+  const { reportId } = useParams();
 
   const data = reportData.find((data) => data._id === reportId);
-  console.log(data);
 
   const returnToHome = () => {
     navigate("/");
@@ -32,6 +30,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   const [open, setOpen] = useState(false);
 
   const inData = {
+    report_no: data?.report_no,
     _id: data?._id,
     name: data?.name,
     work: data?.work,
@@ -53,7 +52,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   ) => {
     setEditReport((prevData) => ({
       ...prevData,
-      [event.target.name]: [event.target.value],
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -86,7 +85,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       </div>
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:px-6">
-          <div>Report</div>
+          <div>Report {data?.report_no}</div>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <div>Date: {data?.date}</div>

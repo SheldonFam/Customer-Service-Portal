@@ -19,6 +19,7 @@ export const createReport = async (
 ): Promise<void> => {
   try {
     const report = await reportData.create({
+      report_no: req.body.report_no,
       name: req.body.name,
       work: req.body.work,
       actions: req.body.actions,

@@ -5,17 +5,6 @@ import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 function App() {
-  //Initial Report Data
-  // const DefaultList = [
-  //   {
-  //     _id: "abc12345",
-  //     name: "Customer Name",
-  //     work: "Work",
-  //     date: "2022-01-01",
-  //     actions: "Actions",
-  //   },
-  // ];
-
   const [reports, setReports] = useState<Array<Reports>>([]);
 
   useEffect(() => {
@@ -28,14 +17,26 @@ function App() {
   }, []);
 
   //After sumbit from home pages
-  const addReports = (newReport: Reports) => {
+  const handleAddReports = (newReport: Reports) => {
+    async function submitReport() {
+      const response = await fetch("http://localhost:8000/reports", {
+        method: "POST",
+        body: JSON.stringify(newReport),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(newReport);
+      return response.json();
+    }
+    submitReport();
     const unique_id = uuid();
     const reportId = unique_id.slice(0, 8);
     newReport._id = reportId;
     setReports([...reports, newReport]);
   };
 
-  const updateReports = (updateData: Reports) => {
+  const handleUpdateReports = (updateData: Reports) => {
     async function saveReport() {
       const response = await fetch(
         `http://localhost:8000/reports/${updateData._id}`,
@@ -63,10 +64,10 @@ function App() {
     console.log("updated success");
   };
 
-  const deleteReports = (updateData: Reports) => {
-    async function dReport() {
+  const handleDeleteReports = (reportData: Reports) => {
+    async function deleteReport() {
       const response = await fetch(
-        `http://localhost:8000/reports/${updateData._id}`,
+        `http://localhost:8000/reports/${reportData._id}`,
         {
           method: "DELETE",
           headers: {
@@ -76,8 +77,8 @@ function App() {
       );
       return response.json();
     }
-    dReport();
-    setReports(reports.filter((report) => report._id !== updateData._id));
+    deleteReport();
+    setReports(reports.filter((report) => report._id !== reportData._id));
     console.log("successful delete");
   };
 
@@ -86,15 +87,17 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePages addReport={addReports} reportList={reports} />}
+          element={
+            <HomePages addReport={handleAddReports} reportList={reports} />
+          }
         />
         <Route
           path={`/report/:reportId`}
           element={
             <ReportPages
               reportData={reports}
-              updateReports={updateReports}
-              deleteReports={deleteReports}
+              updateReports={handleUpdateReports}
+              deleteReports={handleDeleteReports}
             />
           }
         />
