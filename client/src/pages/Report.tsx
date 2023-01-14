@@ -20,7 +20,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
 
   //reportID :string | undefined???
   const { reportId } = useParams();
-  console.log(reportId);
+
   const data = reportData.find((data) => data._id === reportId);
 
   const returnToHome = () => {
