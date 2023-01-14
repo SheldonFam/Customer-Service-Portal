@@ -8,7 +8,7 @@ import { TextArea } from "../component/textarea";
 interface ReportDataProps {
   reportData: Array<Reports>;
   updateReports: (updateData: Reports) => void;
-  deleteReports: (updateData: Reports) => void;
+  deleteReports: (reportData: Reports) => void;
 }
 
 export const ReportPages: React.FC<ReportDataProps> = ({
@@ -20,13 +20,14 @@ export const ReportPages: React.FC<ReportDataProps> = ({
 
   //reportID :string | undefined???
   const { reportId } = useParams();
-
+  console.log(reportId);
   const data = reportData.find((data) => data._id === reportId);
 
   const returnToHome = () => {
     navigate("/");
   };
 
+  //For modal open and close
   const [open, setOpen] = useState(false);
 
   const inData = {
@@ -64,8 +65,8 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   };
 
   const handleDelete = () => {
-    returnToHome();
     deleteReports(editReport);
+    returnToHome();
   };
 
   return (

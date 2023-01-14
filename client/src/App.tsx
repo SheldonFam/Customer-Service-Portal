@@ -2,7 +2,6 @@ import { HomePages } from "./pages/Home";
 import { ReportPages } from "./pages/Report";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
@@ -10,8 +9,8 @@ function App() {
   useEffect(() => {
     async function fetchReports() {
       const response = await fetch("http://localhost:8000/reports");
-      const newReport = await response.json();
-      setReports(newReport);
+      const Reports = await response.json();
+      setReports(Reports);
     }
     fetchReports();
   }, []);
@@ -26,13 +25,12 @@ function App() {
           "Content-Type": "application/json",
         },
       });
-      console.log(newReport);
-      return response.json();
+      const data = await response.json();
+      const reportId = data._id;
+      newReport._id = reportId;
     }
     submitReport();
-    const unique_id = uuid();
-    const reportId = unique_id.slice(0, 8);
-    newReport._id = reportId;
+    console.log(newReport);
     setReports([...reports, newReport]);
   };
 

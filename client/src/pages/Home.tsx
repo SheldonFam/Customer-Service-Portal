@@ -33,8 +33,6 @@ export const HomePages: React.FC<ReportDataProps> = ({
 
   const { _id, name, date, actions, work } = data;
 
-  console.log(data);
-
   //For Input Submit function
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData((prevData) => ({
