@@ -6,22 +6,27 @@ interface ReportListProps {
   reports: Array<Reports>;
 }
 
-export const ReportList: React.FC<ReportListProps> = ({ reports }) => {
+export const ReportList: React.FC<ReportListProps> = (props) => {
+  const reports = props.reports;
   return (
     <>
       <ul>
-        {reports.map((report, index) => (
-          <Link to={`/report/${report._id}`} key={index} id={report._id}>
-            <li className="flex justify-between px-2 py-4 items-center border mb-4 flex-1 rounded-lg">
-              <span>RN{report.report_no}</span>
-              <span>{report.name}</span>
-              <span>{report.date}</span>
-              <span>
-                <MdKeyboardArrowRight className="h-6 w-6 text-gray-400" />
-              </span>
-            </li>
-          </Link>
-        ))}
+        {reports && reports.length ? (
+          reports.map((report, index) => (
+            <Link to={`/report/${report._id}`} key={index} id={report._id}>
+              <li className="flex justify-between px-2 py-4 items-center border mb-4 flex-1 rounded-lg">
+                <span>RN</span>
+                <span>{report.name}</span>
+                <span>{report.date}</span>
+                <span>
+                  <MdKeyboardArrowRight className="h-6 w-6 text-gray-400" />
+                </span>
+              </li>
+            </Link>
+          ))
+        ) : (
+          <div>There are no reports to display.</div>
+        )}
       </ul>
     </>
   );

@@ -7,12 +7,12 @@ function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
 
   useEffect(() => {
-    async function fetchReports() {
+    async function fetchAllReports() {
       const response = await fetch("http://localhost:8000/reports");
       const Reports = await response.json();
       setReports(Reports);
     }
-    fetchReports();
+    fetchAllReports();
   }, []);
 
   //After sumbit from home pages
@@ -71,15 +71,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            <HomePages addReport={handleAddReports} reportList={reports} />
-          }
+          element={<HomePages addReport={handleAddReports} reports={reports} />}
         />
         <Route
           path={`/report/:reportId`}
           element={
             <ReportPages
-              reportData={reports}
+              reports={reports}
               updateReports={handleUpdateReports}
               deleteReports={handleDeleteReports}
             />

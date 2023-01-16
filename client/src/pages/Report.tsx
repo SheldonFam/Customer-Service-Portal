@@ -6,22 +6,25 @@ import { Input } from "../component/input";
 import { TextArea } from "../component/textarea";
 
 interface ReportDataProps {
-  reportData: Array<Reports>;
+  reports: Array<Reports>;
   updateReports: (updateData: Reports) => void;
   deleteReports: (reportData: Reports) => void;
 }
 
 export const ReportPages: React.FC<ReportDataProps> = ({
-  reportData,
+  reports,
   updateReports,
   deleteReports,
 }) => {
+  console.log(reports);
   const navigate = useNavigate();
 
   //reportID :string | undefined???
   const { reportId } = useParams();
+  console.log(reportId);
 
-  const data = reportData.find((data) => data._id === reportId);
+  const data = reports.find((data) => data._id === reportId);
+  console.log(data);
 
   const returnToHome = () => {
     navigate("/");
@@ -31,7 +34,6 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   const [open, setOpen] = useState(false);
 
   const inData = {
-    report_no: data?.report_no,
     _id: data?._id,
     name: data?.name,
     work: data?.work,
@@ -86,7 +88,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       </div>
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:px-6">
-          <div>Report {data?.report_no}</div>
+          <div>Report </div>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <div>Date: {data?.date}</div>

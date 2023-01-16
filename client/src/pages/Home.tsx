@@ -6,22 +6,19 @@ import { TextArea } from "../component/textarea";
 import { ReportList } from "../component/reportlist";
 
 interface ReportDataProps {
-  reportList: Array<Reports>;
+  reports: Array<Reports>;
   addReport: (newReport: Reports) => void;
 }
 
 export const HomePages: React.FC<ReportDataProps> = ({
   addReport,
-  reportList,
+  reports,
 }) => {
   //For modal open and close
   const [open, setOpen] = useState(false);
 
-  const [reportNumber, setReportNumber] = useState(10000);
-
   //Form submit initial Data
   const initialData = {
-    report_no: reportNumber,
     _id: "",
     name: "",
     date: "",
@@ -53,7 +50,6 @@ export const HomePages: React.FC<ReportDataProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setOpen(false);
-    setReportNumber(reportNumber + 1);
     addReport(data);
     setData(initialData);
   };
@@ -61,7 +57,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
   return (
     <div className="px-14 py-12 w-full max-w-2xl h-full m-auto min-h-screen">
       <div className="flex items-center justify-between mb-10">
-        <h1 className="mx-2">Reports</h1>
+        <h1>Reports</h1>
         <Button variant="primary" shape="circle" onClick={() => setOpen(true)}>
           New Report
         </Button>
@@ -116,7 +112,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
           </div>
         </form>
       </Dialog>
-      <ReportList reports={reportList} />
+      <ReportList reports={reports.reports} />
     </div>
   );
 };
