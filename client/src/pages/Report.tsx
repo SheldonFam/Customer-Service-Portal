@@ -13,17 +13,17 @@ interface ReportDataProps {
 
 export const ReportPages: React.FC<ReportDataProps> = ({
   reports,
+  // fetchReport,
   updateReports,
   deleteReports,
 }) => {
-  console.log(reports);
   const navigate = useNavigate();
 
   //reportID :string | undefined???
   const { reportId } = useParams();
   console.log(reportId);
-
-  const data = reports.find((data) => data._id === reportId);
+  console.log(reports);
+  const data = Object.values(reports).find((report) => report._id === reportId);
   console.log(data);
 
   const returnToHome = () => {
@@ -88,7 +88,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       </div>
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:px-6">
-          <div>Report </div>
+          <div>Report</div>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <div>Date: {data?.date}</div>

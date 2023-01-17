@@ -9,8 +9,9 @@ function App() {
   useEffect(() => {
     async function fetchAllReports() {
       const response = await fetch("http://localhost:8000/reports");
-      const Reports = await response.json();
-      setReports(Reports);
+      const reports = await response.json();
+      const allReports = reports.reports;
+      setReports(allReports);
     }
     fetchAllReports();
   }, []);
@@ -24,8 +25,9 @@ function App() {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    setReports([...reports, data]);
+    const newReportData = await response.json();
+    console.log(newReportData);
+    setReports([...reports, newReportData]);
   };
 
   const handleUpdateReports = async (updateData: Reports) => {

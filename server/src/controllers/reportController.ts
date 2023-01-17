@@ -6,7 +6,7 @@ export const getAllReports = async (
   res: Response
 ): Promise<void> => {
   try {
-    const reports = await reportData.find();
+    const reports = await reportData.find({});
     res.status(200).json({ reports });
   } catch (error) {
     res.status(500).json({ message: error });
@@ -24,7 +24,7 @@ export const createReport = async (
       actions: req.body.actions,
       date: req.body.date,
     });
-    res.status(200).json({ report });
+    res.status(200).json(report);
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -40,7 +40,7 @@ export const updateReport = async (
       new: true,
       runValidators: true,
     });
-    res.status(200).json({ report });
+    res.status(200).json(report);
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -52,8 +52,8 @@ export const deleteReport = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const report = await reportData.findByIdAndDelete(id);
-    res.status(200).json({ report });
+    const report = await reportData.findByIdAndDelete({ _id: id });
+    res.status(200).json(report);
   } catch (error) {
     res.status(500).json({ message: error });
   }

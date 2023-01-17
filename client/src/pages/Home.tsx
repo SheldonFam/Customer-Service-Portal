@@ -10,10 +10,7 @@ interface ReportDataProps {
   addReport: (newReport: Reports) => void;
 }
 
-export const HomePages: React.FC<ReportDataProps> = ({
-  addReport,
-  reports,
-}) => {
+export const HomePages: React.FC<ReportDataProps> = (props) => {
   //For modal open and close
   const [open, setOpen] = useState(false);
 
@@ -50,7 +47,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setOpen(false);
-    addReport(data);
+    props.addReport(data);
     setData(initialData);
   };
 
@@ -112,7 +109,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
           </div>
         </form>
       </Dialog>
-      <ReportList reports={reports.reports} />
+      <ReportList reports={props.reports} />
     </div>
   );
 };
