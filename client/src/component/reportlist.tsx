@@ -13,7 +13,7 @@ export const ReportList: React.FC<ReportListProps> = (props) => {
         props.reports.map((report, index) => (
           <Link to={`/report/${report._id}`} key={index} id={report._id}>
             <li className="flex justify-between px-2 py-4 items-center border mb-4 flex-1 rounded-lg">
-              <span>RN</span>
+              <span>RN{report.reportNo}</span>
               <span>{report.name}</span>
               <span>{report.date}</span>
               <span>
