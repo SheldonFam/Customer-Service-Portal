@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
+  const [counters, setCounters] = useState("");
 
   useEffect(() => {
     async function fetchAllReports() {
@@ -68,12 +69,26 @@ function App() {
     console.log("successful delete");
   };
 
+  const totalReports = async () => {
+    const response = await fetch("http://localhost:8000/reports/totalreports");
+    const reportsCounter = await response.json();
+    setCounters(reportsCounter);
+  };
+
+  totalReports();
+
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<HomePages addReport={handleAddReports} reports={reports} />}
+          element={
+            <HomePages
+              addReport={handleAddReports}
+              reports={reports}
+              counters={counters}
+            />
+          }
         />
         <Route
           path={`/report/:reportId`}

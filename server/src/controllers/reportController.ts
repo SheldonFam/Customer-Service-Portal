@@ -52,8 +52,20 @@ export const deleteReport = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const report = await reportData.findByIdAndDelete({ _id: id });
+    const report = await reportData.findByIdAndDelete(id);
     res.status(200).json(report);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
+export const getReportCount = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const totalReports = await reportData.countDocuments();
+    res.status(200).json(totalReports);
   } catch (error) {
     res.status(500).json({ message: error });
   }
