@@ -13,7 +13,6 @@ interface ReportDataProps {
 
 export const ReportPages: React.FC<ReportDataProps> = ({
   reports,
-  // fetchReport,
   updateReports,
   deleteReports,
 }) => {
@@ -34,6 +33,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   const [open, setOpen] = useState(false);
 
   const inData = {
+    reportNo: data?.reportNo,
     _id: data?._id,
     name: data?.name,
     work: data?.work,
@@ -88,7 +88,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       </div>
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:px-6">
-          <div>Report</div>
+          <div>Report {data?.reportNo}</div>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <div>Date: {data?.date}</div>
