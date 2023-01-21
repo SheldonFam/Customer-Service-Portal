@@ -1,9 +1,9 @@
 import { config } from "dotenv";
 config();
 
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
+import * as express from "express";
+import * as cors from "cors";
+import * as bodyParser from "body-parser";
 import { connectDB } from "./db/db";
 
 const app = express();
