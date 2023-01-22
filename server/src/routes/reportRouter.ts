@@ -16,4 +16,4 @@ router
   .patch("/:id", updateReport)
   .delete("/:id", deleteReport);
 
-module.exports = router;
+export default router;

@@ -4,7 +4,7 @@
   "routes": [
     {
       "src": "/reports/(.*)",
-      "dest": "server.ts"
+      "dest": "/server.ts"
     }
   ]
 }
