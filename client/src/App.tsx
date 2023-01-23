@@ -69,13 +69,13 @@ function App() {
     console.log("successful delete");
   };
 
-  const totalReports = async () => {
-    const response = await fetch("http://localhost:8000/reports/totalreports");
-    const reportsCounter = await response.json();
-    setCounters(reportsCounter);
-  };
+  // const totalReports = async () => {
+  //   const response = await fetch("http://localhost:8000/reports/totalreports");
+  //   const reportsCounter = await response.json();
+  //   setCounters(reportsCounter);
+  // };
 
-  totalReports();
+  // totalReports();
 
   return (
     <>
