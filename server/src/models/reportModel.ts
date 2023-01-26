@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongooseAutoIncrement from "mongoose-auto-increment";
 
-const mongooseAutoIncrement = require("mongoose-auto-increment");
 mongooseAutoIncrement.initialize(mongoose.connection);
+
+const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
   reportNo: { type: Number, autoIncrement: true },
