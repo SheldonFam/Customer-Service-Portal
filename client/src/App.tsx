@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     async function fetchAllReports() {
-      const response = await fetch("http://localhost:8000/reports");
+      const response = await fetch(`${process.env.REPORT_API}/reports`);
       const reports = await response.json();
       const allReports = reports.reports;
       setReports(allReports);
@@ -19,7 +19,7 @@ function App() {
 
   //After sumbit from home pages
   const handleAddReports = async (newReport: Reports) => {
-    const response = await fetch("http://localhost:8000/reports", {
+    const response = await fetch(`${process.env.REPORT_API}/reports`, {
       method: "POST",
       body: JSON.stringify(newReport),
       headers: {
@@ -33,7 +33,7 @@ function App() {
 
   const handleUpdateReports = async (updateData: Reports) => {
     const response = await fetch(
-      `http://localhost:8000/reports/${updateData._id}`,
+      `${process.env.REPORT_API}/reports/${updateData._id}`,
       {
         method: "PATCH",
         body: JSON.stringify({
@@ -57,7 +57,7 @@ function App() {
 
   const handleDeleteReports = async (reportData: Reports) => {
     const response = await fetch(
-      `http://localhost:8000/reports/${reportData._id}`,
+      `${process.env.REPORT_API}/reports/${reportData._id}`,
       {
         method: "DELETE",
         headers: {
