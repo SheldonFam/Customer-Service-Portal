@@ -2,6 +2,8 @@ import { HomePages } from "./pages/Home";
 import { ReportPages } from "./pages/Report";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import dotenv from "dotenv";
+dotenv.config();
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
