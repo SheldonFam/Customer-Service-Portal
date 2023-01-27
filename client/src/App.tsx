@@ -3,8 +3,8 @@ import { ReportPages } from "./pages/Report";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// const reportApi = "https://reports-api.vercel.app";
-const localhost = "http://localhost:8000";
+const reportApi = "https://reports-api.vercel.app";
+// const localhost = "http://localhost:8000";
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     async function fetchAllReports() {
-      const response = await fetch(`${localhost}/reports`);
+      const response = await fetch(`${reportApi}/reports`);
       const reports = await response.json();
       const allReports = reports.reports;
       setReports(allReports);
@@ -22,7 +22,7 @@ function App() {
 
   //After sumbit from home pages
   const handleAddReports = async (newReport: Reports) => {
-    const response = await fetch(`${localhost}/reports`, {
+    const response = await fetch(`${reportApi}/reports`, {
       method: "POST",
       body: JSON.stringify(newReport),
       headers: {
@@ -35,7 +35,7 @@ function App() {
   };
 
   const handleUpdateReports = async (updateData: Reports) => {
-    const response = await fetch(`${localhost}/reports/${updateData._id}`, {
+    const response = await fetch(`${reportApi}/reports/${updateData._id}`, {
       method: "PATCH",
       body: JSON.stringify({
         name: updateData.name,
@@ -56,7 +56,7 @@ function App() {
   };
 
   const handleDeleteReports = async (reportData: Reports) => {
-    const response = await fetch(`${localhost}/reports/${reportData._id}`, {
+    const response = await fetch(`${reportApi}/reports/${reportData._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function App() {
   };
 
   const totalReports = async () => {
-    const response = await fetch("http://localhost:8000/reports/totalreports");
+    const response = await fetch(`${reportApi}/reports/totalreports`);
     const reportsCounter = await response.json();
     setCounters(reportsCounter);
   };
