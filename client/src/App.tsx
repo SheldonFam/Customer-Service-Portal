@@ -3,14 +3,16 @@ import { ReportPages } from "./pages/Report";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const reportApi = "https://reports-api.vercel.app";
+// const reportApi = "https://reports-api.vercel.app";
+const localhost = "http://localhost:8000";
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
+  const [counters, setCounters] = useState("");
 
   useEffect(() => {
     async function fetchAllReports() {
-      const response = await fetch(`${reportApi}/reports`);
+      const response = await fetch(`${localhost}/reports`);
       const reports = await response.json();
       const allReports = reports.reports;
       setReports(allReports);
@@ -20,7 +22,7 @@ function App() {
 
   //After sumbit from home pages
   const handleAddReports = async (newReport: Reports) => {
-    const response = await fetch(`${reportApi}/reports`, {
+    const response = await fetch(`${localhost}/reports`, {
       method: "POST",
       body: JSON.stringify(newReport),
       headers: {
@@ -33,7 +35,7 @@ function App() {
   };
 
   const handleUpdateReports = async (updateData: Reports) => {
-    const response = await fetch(`${reportApi}/reports/${updateData._id}`, {
+    const response = await fetch(`${localhost}/reports/${updateData._id}`, {
       method: "PATCH",
       body: JSON.stringify({
         name: updateData.name,
@@ -54,7 +56,7 @@ function App() {
   };
 
   const handleDeleteReports = async (reportData: Reports) => {
-    const response = await fetch(`${reportApi}/reports/${reportData._id}`, {
+    const response = await fetch(`${localhost}/reports/${reportData._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -64,12 +66,26 @@ function App() {
     console.log("successful delete");
   };
 
+  const totalReports = async () => {
+    const response = await fetch("http://localhost:8000/reports/totalreports");
+    const reportsCounter = await response.json();
+    setCounters(reportsCounter);
+  };
+
+  totalReports();
+
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<HomePages addReport={handleAddReports} reports={reports} />}
+          element={
+            <HomePages
+              addReport={handleAddReports}
+              reports={reports}
+              counters={counters}
+            />
+          }
         />
         <Route
           path={`/report/:reportId`}

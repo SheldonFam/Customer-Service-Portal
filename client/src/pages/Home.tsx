@@ -8,6 +8,7 @@ import { ReportList } from "../component/reportlist";
 interface ReportDataProps {
   reports: Array<Reports>;
   addReport: (newReport: Reports) => void;
+  counters: string;
 }
 
 export const HomePages: React.FC<ReportDataProps> = (props) => {
@@ -56,6 +57,7 @@ export const HomePages: React.FC<ReportDataProps> = (props) => {
     <div className="px-14 py-12 w-full max-w-2xl h-full m-auto min-h-screen">
       <div className="flex items-center justify-between mb-10">
         <h1>Reports</h1>
+        <p>Total Reports:{props.counters}</p>
         <Button variant="primary" shape="circle" onClick={() => setOpen(true)}>
           New Report
         </Button>

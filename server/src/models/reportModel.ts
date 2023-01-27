@@ -11,6 +11,6 @@ const reportSchema = new Schema({
   actions: String,
 });
 
-reportSchema.plugin(AutoIncrement, { inc_field: "reportNo" });
+reportSchema.plugin(AutoIncrement, { inc_field: "reportNo", start_seq: 10000 });
 
 export const reportData = mongoose.model("Report", reportSchema);
