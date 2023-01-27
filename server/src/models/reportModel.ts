@@ -1,22 +1,16 @@
 import mongoose from "mongoose";
-import mongooseAutoIncrement from "mongoose-auto-increment";
-
-mongooseAutoIncrement.initialize(mongoose.connection);
-
 const Schema = mongoose.Schema;
 
+const AutoIncrement = require("mongoose-sequence")(mongoose);
+
 const reportSchema = new Schema({
-  reportNo: { type: Number, autoIncrement: true },
+  reportNo: Number,
   date: String,
   name: String,
   work: String,
   actions: String,
 });
 
-reportSchema.plugin(mongooseAutoIncrement.plugin, {
-  model: "Report",
-  field: "reportNo",
-  startAt: 10000,
-});
+reportSchema.plugin(AutoIncrement, { inc_field: "reportNo" });
 
 export const reportData = mongoose.model("Report", reportSchema);

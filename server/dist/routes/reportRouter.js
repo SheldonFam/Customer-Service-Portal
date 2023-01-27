@@ -8,7 +8,7 @@ const reportController_1 = require("../controllers/reportController");
 const router = express_1.default.Router();
 router
     .get("/", reportController_1.getAllReports)
-    .get("/totalreports", reportController_1.getReportCount)
+    // .get("/totalreports", getReportCount)
     .post("/", reportController_1.createReport)
     .patch("/:id", reportController_1.updateReport)
     .delete("/:id", reportController_1.deleteReport);

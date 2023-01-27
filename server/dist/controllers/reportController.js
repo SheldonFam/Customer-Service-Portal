@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getReportCount = exports.deleteReport = exports.updateReport = exports.createReport = exports.getAllReports = void 0;
+exports.deleteReport = exports.updateReport = exports.createReport = exports.getAllReports = void 0;
 const reportModel_1 = require("../models/reportModel");
 const getAllReports = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -61,13 +61,14 @@ const deleteReport = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.deleteReport = deleteReport;
-const getReportCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const totalReports = yield reportModel_1.reportData.countDocuments();
-        res.status(200).json(totalReports);
-    }
-    catch (error) {
-        res.status(500).json({ message: error });
-    }
-});
-exports.getReportCount = getReportCount;
+// export const getReportCount = async (
+//   req: Request,
+//   res: Response
+// ): Promise<void> => {
+//   try {
+//     const totalReports = await reportData.countDocuments();
+//     res.status(200).json(totalReports);
+//   } catch (error) {
+//     res.status(500).json({ message: error });
+//   }
+// };
