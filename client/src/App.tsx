@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import dotenv from "dotenv";
 dotenv.config();
 
+const reportApi = process.env.REACT_APP_REPORT_API;
+
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
   const [counters, setCounters] = useState("");
 
   useEffect(() => {
     async function fetchAllReports() {
-      const response = await fetch(`${process.env.REPORT_API}/reports`);
+      const response = await fetch(`${reportApi}/reports`);
       const reports = await response.json();
       const allReports = reports.reports;
       setReports(allReports);
@@ -21,7 +23,7 @@ function App() {
 
   //After sumbit from home pages
   const handleAddReports = async (newReport: Reports) => {
-    const response = await fetch(`${process.env.REPORT_API}/reports`, {
+    const response = await fetch(`${reportApi}/reports`, {
       method: "POST",
       body: JSON.stringify(newReport),
       headers: {
@@ -34,21 +36,18 @@ function App() {
   };
 
   const handleUpdateReports = async (updateData: Reports) => {
-    const response = await fetch(
-      `${process.env.REPORT_API}/reports/${updateData._id}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({
-          name: updateData.name,
-          work: updateData.work,
-          date: updateData.date,
-          actions: updateData.actions,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${reportApi}/reports/${updateData._id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        name: updateData.name,
+        work: updateData.work,
+        date: updateData.date,
+        actions: updateData.actions,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     setReports(
       reports.map((report) =>
         report._id === updateData._id ? updateData : report
@@ -58,15 +57,12 @@ function App() {
   };
 
   const handleDeleteReports = async (reportData: Reports) => {
-    const response = await fetch(
-      `${process.env.REPORT_API}/reports/${reportData._id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${reportApi}/reports/${reportData._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     setReports(reports.filter((report) => report._id !== reportData._id));
     console.log("successful delete");
   };
