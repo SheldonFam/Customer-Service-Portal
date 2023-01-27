@@ -2,14 +2,11 @@ import { HomePages } from "./pages/Home";
 import { ReportPages } from "./pages/Report";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import dotenv from "dotenv";
-dotenv.config();
 
-const reportApi = process.env.REACT_APP_REPORT_API;
+const reportApi = "https://reports-api.vercel.app";
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
-  const [counters, setCounters] = useState("");
 
   useEffect(() => {
     async function fetchAllReports() {
@@ -67,26 +64,12 @@ function App() {
     console.log("successful delete");
   };
 
-  // const totalReports = async () => {
-  //   const response = await fetch("http://localhost:8000/reports/totalreports");
-  //   const reportsCounter = await response.json();
-  //   setCounters(reportsCounter);
-  // };
-
-  // totalReports();
-
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={
-            <HomePages
-              addReport={handleAddReports}
-              reports={reports}
-              counters={counters}
-            />
-          }
+          element={<HomePages addReport={handleAddReports} reports={reports} />}
         />
         <Route
           path={`/report/:reportId`}
