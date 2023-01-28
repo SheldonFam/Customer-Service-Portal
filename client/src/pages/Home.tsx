@@ -8,7 +8,6 @@ import { ReportList } from "../component/reportlist";
 interface ReportDataProps {
   reports: Array<Reports>;
   addReport: (newReport: Reports) => void;
-  // counters: string;
 }
 
 export const HomePages: React.FC<ReportDataProps> = (props) => {

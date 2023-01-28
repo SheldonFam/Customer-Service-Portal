@@ -58,15 +58,3 @@ export const deleteReport = async (
     res.status(500).json({ message: error });
   }
 };
-
-// export const getReportCount = async (
-//   req: Request,
-//   res: Response
-// ): Promise<void> => {
-//   try {
-//     const totalReports = await reportData.countDocuments({});
-//     res.status(200).json({ totalReports });
-//   } catch (error) {
-//     res.status(500).json({ message: error });
-//   }
-// };

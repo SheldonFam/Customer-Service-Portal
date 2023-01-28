@@ -4,7 +4,6 @@ import {
   createReport,
   deleteReport,
   updateReport,
-  // getReportCount,
 } from "../controllers/reportController";
 
 const router = express.Router();
@@ -14,5 +13,4 @@ router
   .post("/", createReport)
   .patch("/:id", updateReport)
   .delete("/:id", deleteReport);
-// .get("/totalreports", getReportCount);
 export default router;
