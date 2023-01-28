@@ -8,7 +8,7 @@ const reportApi = "https://reports-api.vercel.app";
 
 function App() {
   const [reports, setReports] = useState<Array<Reports>>([]);
-  const [counters, setCounters] = useState("");
+  // const [counters, setCounters] = useState("");
 
   useEffect(() => {
     async function fetchAllReports() {
@@ -66,13 +66,16 @@ function App() {
     console.log("successful delete");
   };
 
-  const totalReports = async () => {
-    const response = await fetch(`${reportApi}/reports/totalreports`);
-    const reportsCounter = await response.json();
-    setCounters(reportsCounter);
-  };
+  // const totalReports = async () => {
+  //   const response = await fetch(`${localhost}/reports/totalreports`);
+  //   console.log(response);
+  //   const reportsCounter = await response.json();
+  //   console.log(reportsCounter);
+  //   const counters = reportsCounter.totalReports;
+  //   setCounters(counters);
+  // };
 
-  totalReports();
+  // totalReports();
 
   return (
     <>
@@ -83,7 +86,7 @@ function App() {
             <HomePages
               addReport={handleAddReports}
               reports={reports}
-              counters={counters}
+              // counters={counters}
             />
           }
         />
