@@ -20,10 +20,8 @@ export const ReportPages: React.FC<ReportDataProps> = ({
 
   //reportID :string | undefined???
   const { reportId } = useParams();
-  console.log(reportId);
-  console.log(reports);
+
   const data = Object.values(reports).find((report) => report._id === reportId);
-  console.log(data);
 
   const returnToHome = () => {
     navigate("/");
