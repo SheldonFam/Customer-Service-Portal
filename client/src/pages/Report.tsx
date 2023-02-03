@@ -1,6 +1,6 @@
 import { Button } from "../component/button";
 import { useNavigate, useParams } from "react-router-dom";
-import { Dialog } from "../component/dialog";
+import { Modal } from "../component/modal";
 import { useState } from "react";
 import { Input } from "../component/input";
 import { TextArea } from "../component/textarea";
@@ -29,6 +29,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
 
   //For modal open and close
   const [open, setOpen] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const inData = {
     reportNo: data?.reportNo,
@@ -69,6 +70,10 @@ export const ReportPages: React.FC<ReportDataProps> = ({
     returnToHome();
   };
 
+  const handleOpenDeleteModal = () => {
+    setOpenDeleteModal(true);
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8 min-h-screen">
       <div className="flex flex-row justify-between mb-2">
@@ -79,7 +84,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
           <Button variant={"primary"} onClick={() => setOpen(true)}>
             Edit
           </Button>
-          <Button variant={"danger"} onClick={handleDelete}>
+          <Button variant={"danger"} onClick={handleOpenDeleteModal}>
             Delete
           </Button>
         </div>
@@ -96,7 +101,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
         </div>
       </div>
       <div>
-        <Dialog open={open} title={"Edit Report"}>
+        <Modal isOpen={open} title={"Edit Report"}>
           <form onSubmit={handleSubmit} id={editReport._id}>
             <Input
               label="Date"
@@ -142,25 +147,24 @@ export const ReportPages: React.FC<ReportDataProps> = ({
               </Button>
             </div>
           </form>
-        </Dialog>
+        </Modal>
       </div>
-      {/*Delete Report Modal? */}
-      {/* <div>
-        <Dialog open={open} title={"Delete Report?"}>
+      <div>
+        <Modal isOpen={openDeleteModal} title={"Delete Report?"}>
           <div className="flex justify-end mt-2 gap-2">
             <Button
               onClick={() => {
-                setOpen(false);
+                setOpenDeleteModal(false);
               }}
             >
               Cancel
             </Button>
-            <Button variant="danger" type="submit">
+            <Button variant="danger" type="submit" onClick={handleDelete}>
               Yes
             </Button>
           </div>
-        </Dialog>
-      </div> */}
+        </Modal>
+      </div>
     </div>
   );
 };
