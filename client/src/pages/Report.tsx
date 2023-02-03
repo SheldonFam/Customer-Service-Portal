@@ -75,7 +75,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8 min-h-screen">
+    <div className="px-6 py-10 md:px-12 min-h-screen max-w-3xl m-auto">
       <div className="flex flex-row justify-between mb-2">
         <div>
           <Button onClick={returnToHome}>Go Back</Button>
@@ -91,7 +91,7 @@ export const ReportPages: React.FC<ReportDataProps> = ({
       </div>
       <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:px-6">
-          <div>Report {data?.reportNo}</div>
+          <div className="font-bold">Report {data?.reportNo}</div>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <div>Date: {data?.date}</div>

@@ -56,7 +56,7 @@ export const HomePages: React.FC<ReportDataProps> = ({
   };
 
   return (
-    <div className="px-14 py-12 w-full max-w-2xl h-full m-auto min-h-screen">
+    <div className="px-6 py-10 w-full max-w-2xl h-full m-auto min-h-screen">
       <div className="flex items-center justify-between mb-10">
         <div className="flex flex-col mr-auto">
           <h1 className="text-2xl font-bold">Reports</h1>
