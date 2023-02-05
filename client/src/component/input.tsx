@@ -11,12 +11,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const appliedId = rest.id || rest.name || autoId;
     return (
       <div>
-        <label htmlFor={appliedId}>{label}</label>
+        <label htmlFor={appliedId} className="text-xs md:text-base">
+          {label}
+        </label>
         <input
           type="text"
           id={appliedId}
           className={clsx(
-            "mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+            "mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500  text-xs md:text-base",
             className
           )}
           ref={forwardedRef}
