@@ -1,4 +1,4 @@
-type AddReport = (newReport: Reports) => void;
+// type AddReport = (newReport: Reports) => void;
 
 type Reports = {
   reportNo: string | undefined;

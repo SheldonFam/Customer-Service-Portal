@@ -11,11 +11,11 @@ interface ReportDataProps {
   deleteReports: (reportData: Reports) => void;
 }
 
-export const ReportPages: React.FC<ReportDataProps> = ({
+export const ReportPages = ({
   reports,
   updateReports,
   deleteReports,
-}) => {
+}: ReportDataProps) => {
   const navigate = useNavigate();
 
   //reportID :string | undefined???
@@ -150,7 +150,11 @@ export const ReportPages: React.FC<ReportDataProps> = ({
         </Modal>
       </div>
       <div>
-        <Modal isOpen={openDeleteModal} title={"Delete Report?"}>
+        <Modal isOpen={openDeleteModal} title={"Confirm Deletion?"}>
+          <div>
+            Are you sure you want to delete report RN{data?.reportNo}? This
+            action cannot be undone.
+          </div>
           <div className="flex justify-end mt-2 gap-2">
             <Button
               onClick={() => {
