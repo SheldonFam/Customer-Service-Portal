@@ -6,7 +6,7 @@ interface ReportListProps {
   reports: Array<Reports>;
 }
 
-export const ReportList: React.FC<ReportListProps> = ({ reports }) => {
+export const ReportList = ({ reports }: ReportListProps) => {
   return (
     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
       {reports && reports.length ? (

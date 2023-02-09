@@ -7,7 +7,7 @@ interface ModalProps {
   title?: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, children, title }) => {
+export const Modal = ({ isOpen, children, title }: ModalProps) => {
   return (
     <ReactModal
       className="fixed inset-0 bg-gray-500 opacity-80"

@@ -10,10 +10,7 @@ interface ReportDataProps {
   addReport: (newReport: Reports) => void;
 }
 
-export const HomePages: React.FC<ReportDataProps> = ({
-  reports,
-  addReport,
-}) => {
+export const HomePages = ({ reports, addReport }: ReportDataProps) => {
   //For modal open and close
   const [open, setOpen] = useState(false);
 
