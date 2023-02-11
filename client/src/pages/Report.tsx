@@ -105,6 +105,7 @@ export const ReportPages = () => {
 
   return (
     <div className="px-6 py-10 md:px-12 min-h-screen max-w-3xl m-auto text-xs md:text-base">
+    <div className="px-6 py-10 md:px-12 min-h-screen max-w-3xl m-auto text-xs md:text-base">
       <div className="flex flex-row justify-between mb-2">
         <div>
           <Button onClick={returnToHome}>Go Back</Button>
