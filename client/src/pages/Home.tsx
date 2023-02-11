@@ -82,8 +82,6 @@ export const HomePages = () => {
         <div className="flex flex-col mr-auto">
           <h1 className="font-bold text-sm md:text-2xl">Reports</h1>
           <p className="text-sm">Total Reports : {reports.length}</p>
-          <h1 className="font-bold text-sm md:text-2xl">Reports</h1>
-          <p className="text-sm">Total Reports : {reports.length}</p>
         </div>
         <div>
           <Button
