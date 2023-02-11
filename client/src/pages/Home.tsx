@@ -4,15 +4,39 @@ import { Modal } from "../component/modal";
 import { Input } from "../component/input";
 import { TextArea } from "../component/textarea";
 import { ReportList } from "../component/reportlist";
+import { useEffect } from "react";
+import * as ReportsApi from "../api/reports_api";
+import { Reports } from "../../models/reports";
 
-interface ReportDataProps {
-  reports: Array<Reports>;
-  addReport: (newReport: Reports) => void;
-}
+export const HomePages = () => {
+  const [reports, setReports] = useState<Array<Reports>>([]);
+  const [loading, setLoading] = useState(true);
 
-export const HomePages = ({ reports, addReport }: ReportDataProps) => {
+  useEffect(() => {
+    async function fetchAllReports() {
+      try {
+        const reports = await ReportsApi.fetchAllReports();
+        setReports(reports);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchAllReports();
+  }, []);
+
+  //After sumbit from home pages
+  async function createNewReport(newReportData: Reports) {
+    try {
+      const newReport = await ReportsApi.createReport(newReportData);
+      setReports([...reports, newReport]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   //For modal open and close
-  const [open, setOpen] = useState(false);
+  const [showAddReportModal, setShowAddReportModal] = useState(false);
 
   //Form submit initial Data
   const initialData = {
@@ -47,8 +71,8 @@ export const HomePages = ({ reports, addReport }: ReportDataProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setOpen(false);
-    addReport(data);
+    createNewReport(data);
+    setShowAddReportModal(false);
     setData(initialData);
   };
 
@@ -63,13 +87,13 @@ export const HomePages = ({ reports, addReport }: ReportDataProps) => {
           <Button
             variant="primary"
             shape="circle"
-            onClick={() => setOpen(true)}
+            onClick={() => setShowAddReportModal(true)}
           >
             New Report
           </Button>
         </div>
       </div>
-      <Modal isOpen={open} title={"Create Report"}>
+      <Modal isOpen={showAddReportModal} title={"Create Report"}>
         <form onSubmit={handleSubmit}>
           <div id={_id}>
             <Input
@@ -106,7 +130,7 @@ export const HomePages = ({ reports, addReport }: ReportDataProps) => {
             <div className="flex justify-end mt-2 gap-2">
               <Button
                 onClick={() => {
-                  setOpen(false);
+                  setShowAddReportModal(false);
                   setData(initialData);
                 }}
               >
@@ -119,7 +143,7 @@ export const HomePages = ({ reports, addReport }: ReportDataProps) => {
           </div>
         </form>
       </Modal>
-      <ReportList reports={reports} />
+      {loading ? <p>Loading...</p> : <ReportList reports={reports} />}
     </div>
   );
 };

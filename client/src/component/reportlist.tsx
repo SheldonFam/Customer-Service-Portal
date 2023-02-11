@@ -1,6 +1,7 @@
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { Reports } from "../../models/reports";
 
 interface ReportListProps {
   reports: Array<Reports>;

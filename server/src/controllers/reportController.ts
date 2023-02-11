@@ -13,6 +13,16 @@ export const getAllReports = async (
   }
 };
 
+export const getReport = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const report = await reportData.findOne({ _id: id });
+    res.status(200).json(report);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
 export const createReport = async (
   req: Request,
   res: Response
