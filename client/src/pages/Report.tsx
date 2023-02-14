@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import * as ReportsApi from "../api/reports_api";
 import { Reports } from "../../models/reports";
 
-export const ReportPages = () => {
+export const ReportPage = () => {
   const [reports, setReports] = useState<Array<Reports>>([]);
 
   useEffect(() => {
@@ -38,6 +38,9 @@ export const ReportPages = () => {
     navigate("/");
   };
 
+  // const { reportId } = useParams();
+  // const data = reports.find((report) => report._id === reportId);
+
   useEffect(() => {
     async function fetchData() {
       const { reportId } = params;
@@ -46,7 +49,7 @@ export const ReportPages = () => {
     }
     fetchData();
     return;
-  }, [params.reportId, navigate]);
+  }, [params.reportId]);
 
   const [openEditModal, setOpenEditModal] = useState(false);
 

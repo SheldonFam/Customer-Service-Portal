@@ -7,19 +7,25 @@ import { ReportList } from "../component/reportlist";
 import { useEffect } from "react";
 import * as ReportsApi from "../api/reports_api";
 import { Reports } from "../../models/reports";
+import { SkeletonCard } from "../component/skeletoncard";
 
-export const HomePages = () => {
+export const HomePage = () => {
   const [reports, setReports] = useState<Array<Reports>>([]);
   const [loading, setLoading] = useState(true);
+  const [showLoadingError, setShowLoadingError] = useState(false);
 
   useEffect(() => {
     async function fetchAllReports() {
       try {
+        setShowLoadingError(false);
+        setLoading(true);
         const reports = await ReportsApi.fetchAllReports();
         setReports(reports);
-        setLoading(false);
       } catch (error) {
         console.log(error);
+        setShowLoadingError(true);
+      } finally {
+        setLoading(false);
       }
     }
     fetchAllReports();
@@ -143,7 +149,11 @@ export const HomePages = () => {
           </div>
         </form>
       </Modal>
-      {loading ? <p>Loading...</p> : <ReportList reports={reports} />}
+      {loading && [1, 2, 3, 4, 5].map((n) => <SkeletonCard key={n} />)}
+      {showLoadingError && (
+        <p>Something went wrong. Please refresh the page.</p>
+      )}
+      {!loading && !showLoadingError && <ReportList reports={reports} />}
     </div>
   );
 };
