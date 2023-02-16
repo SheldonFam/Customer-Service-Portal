@@ -6,7 +6,7 @@ import { TextArea } from "../component/textarea";
 import { ReportList } from "../component/reportlist";
 import { useEffect } from "react";
 import * as ReportsApi from "../api/reports_api";
-import { Reports } from "../../models/reports";
+import { Reports } from "../models/reports";
 import { SkeletonCard } from "../component/skeletoncard";
 
 export const HomePage = () => {
