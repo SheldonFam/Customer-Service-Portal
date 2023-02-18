@@ -23,7 +23,7 @@ export const NavBarLogInView = ({
 
   return (
     <div className="flex flex-col lg:flex-row lg:ml-auto gap-4">
-      <span className="ml-2">Sign in as:{user.userName}</span>
+      <span className="ml-2 text-white font-medium">User: {user.userName}</span>
       <Button variant="default" onClick={logout}>
         Log Out
       </Button>

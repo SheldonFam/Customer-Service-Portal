@@ -6,7 +6,6 @@ const localhost = "http://localhost:8000";
 export async function fetchData(input: RequestInfo, init?: RequestInit) {
   const response = await fetch(input, init);
   if (response.ok) {
-    console.log(response);
     return response;
   } else {
     const errorBody = await response.json();
@@ -16,9 +15,9 @@ export async function fetchData(input: RequestInfo, init?: RequestInit) {
 }
 
 export async function getLogInUser(): Promise<User> {
-  const response = await fetchData("/users", { method: "GET" });
-  console.log(response);
-  console.log(response.json());
+  const response = await fetchData("http:localhost:8000/users", {
+    method: "GET",
+  });
   return response.json();
 }
 
@@ -29,7 +28,7 @@ export interface SignUpCredentials {
 }
 
 export async function signUp(credentials: SignUpCredentials): Promise<User> {
-  const response = await fetchData("/users/signup", {
+  const response = await fetchData("http://localhost:8000/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,20 +44,19 @@ export interface LogInCredentials {
 }
 
 export async function login(credentials: LogInCredentials): Promise<User> {
-  const response = await fetchData("users/login", {
+  const response = await fetchData("http://localhost:8000/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
   });
-  console.log(response);
-  console.log(credentials);
   return response.json();
 }
 
 export async function logout() {
-  await fetchData("users/logout", {
+  const response = await fetchData("http://localhost:8000/users/logout", {
     method: "POST",
   });
+  return response;
 }

@@ -2,16 +2,16 @@ import { HomePage } from "./pages/Home";
 import { ReportPage } from "./pages/Report";
 import { NotFoundPage } from "./pages/NotFound";
 import { Routes, Route } from "react-router-dom";
-import { NavBar } from "./component/navbar";
+import { NavBar } from "./components/navbar";
 import { useState, useEffect } from "react";
 import { User } from "./models/user";
 import * as UsersApi from "./api/users_api";
-import { LoginModal } from "./component/LoginModal";
-import { SignUpModal } from "./component/SignUpModal";
+import { LoginModal } from "./components/loginmodal";
+import { SignUpModal } from "./components/signupmodal";
 
 function App() {
   const [logInUser, setLogInUser] = useState<User | null>(null);
-  // const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   //fetch loginUser data?if key in the correct password and name
@@ -33,10 +33,10 @@ function App() {
       <NavBar
         loggedInUser={logInUser}
         onLoginClicked={() => setShowLoginModal(true)}
-        // onSignUpClicked={() => setShowSignUpModal(true)}
+        onSignUpClicked={() => setShowSignUpModal(true)}
         onLogoutSuccessful={() => setLogInUser(null)}
       />
-      {/* {showSignUpModal && (
+      {showSignUpModal && (
         <SignUpModal
           onDismiss={() => setShowSignUpModal(false)}
           onSignUpSuccessful={(user) => {
@@ -44,7 +44,7 @@ function App() {
             setShowSignUpModal(false);
           }}
         />
-      )} */}
+      )}
       {showLoginModal && (
         <LoginModal
           onDismiss={() => setShowLoginModal(false)}
@@ -55,7 +55,7 @@ function App() {
         />
       )}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage logInUser={logInUser} />} />
         <Route path={`/report/:reportId`} element={<ReportPage />} />
         <Route path={"/*"} element={<NotFoundPage />} />
       </Routes>

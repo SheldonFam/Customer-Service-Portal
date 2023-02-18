@@ -6,14 +6,14 @@ import { NavBarLogOutView } from "./navbarlogoutview";
 
 interface NavBarProps {
   loggedInUser: User | null;
-  //   onSignUpClicked: () => void;
+  onSignUpClicked: () => void;
   onLoginClicked: () => void;
   onLogoutSuccessful: () => void;
 }
 
 export const NavBar = ({
   loggedInUser,
-  //   onSignUpClicked,
+  onSignUpClicked,
   onLoginClicked,
   onLogoutSuccessful,
 }: NavBarProps) => {
@@ -51,7 +51,7 @@ export const NavBar = ({
           ) : (
             <NavBarLogOutView
               onLoginClicked={onLoginClicked}
-              //   onSignUpClicked={onSignUpClicked}
+              onSignUpClicked={onSignUpClicked}
             />
           )}
         </div>
