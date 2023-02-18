@@ -1,11 +1,11 @@
-import { Reports } from "../../models/reports";
+import { Reports } from "../models/reports";
 
 const reportApi = "https://reports-api.vercel.app";
 const localhost = "http://localhost:8000";
 
 export async function fetchData(input: RequestInfo, init?: RequestInit) {
   const response = await fetch(input, init);
-  if (response.ok) {
+  if (response.status === 200) {
     return response;
   } else {
     const errorBody = await response.json();

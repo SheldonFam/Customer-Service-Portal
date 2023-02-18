@@ -1,12 +1,12 @@
-import { Button } from "../component/button";
+import { Button } from "../components/button";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal } from "../component/modal";
+import { Modal } from "../components/modal";
 import { useState } from "react";
-import { Input } from "../component/input";
-import { TextArea } from "../component/textarea";
+import { Input } from "../components/input";
+import { TextArea } from "../components/textarea";
 import { useEffect } from "react";
 import * as ReportsApi from "../api/reports_api";
-import { Reports } from "../../models/reports";
+import { Reports } from "../models/reports";
 
 export const ReportPage = () => {
   const [reports, setReports] = useState<Array<Reports>>([]);
@@ -33,7 +33,9 @@ export const ReportPage = () => {
   });
 
   const params = useParams();
+
   const navigate = useNavigate();
+
   const returnToHome = () => {
     navigate("/");
   };

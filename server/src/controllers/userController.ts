@@ -2,7 +2,6 @@ import { Response, Request, NextFunction } from "express";
 import { userModel } from "../models/userModel";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
-import { throws } from "assert";
 
 export const getAuthenticatedUser = async (
   req: Request,
@@ -10,11 +9,13 @@ export const getAuthenticatedUser = async (
   next: NextFunction
 ) => {
   const authUser = req.session.userId;
+  console.log(authUser);
   try {
     if (!authUser) {
       throw createHttpError("User not authenticated");
     }
     const user = await userModel.findById(req.session.userId).select("+email");
+    console.log(user);
     res.status(200).json(user);
   } catch (error) {
     next(error);
