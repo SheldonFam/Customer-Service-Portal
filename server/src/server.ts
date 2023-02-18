@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 config();
 import env from "./utils/validateEnv";
+
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -31,6 +32,7 @@ app.use(
     }),
   })
 );
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/reports", apiRoutes);

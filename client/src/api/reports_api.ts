@@ -15,7 +15,7 @@ export async function fetchData(input: RequestInfo, init?: RequestInit) {
 }
 
 export async function fetchAllReports(): Promise<Reports[]> {
-  const response = await fetchData("https://reports-api.vercel.app/reports", {
+  const response = await fetchData("http://localhost:8000/reports", {
     method: "GET",
   });
   const reports = await response.json();
@@ -27,7 +27,7 @@ export async function fetchSingleReport(
   reportId: string | undefined
 ): Promise<Reports> {
   const response = await fetchData(
-    "https://reports-api.vercel.app/reports/" + reportId,
+    "http://localhost:8000/reports/" + reportId,
     {
       method: "GET",
     }
@@ -48,7 +48,7 @@ export async function fetchSingleReport(
 // }
 
 export async function createReport(newReport: Reports): Promise<Reports> {
-  const response = await fetch("https://reports-api.vercel.app/reports", {
+  const response = await fetch("http://localhost:8000/reports", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export async function createReport(newReport: Reports): Promise<Reports> {
 
 export async function updateReport(updateData: Reports): Promise<Reports> {
   const response = await fetch(
-    "https://reports-api.vercel.app/reports/" + updateData._id,
+    "http://localhost:8000/reports/" + updateData._id,
     {
       method: "PATCH",
       headers: {
@@ -78,14 +78,11 @@ export async function updateReport(updateData: Reports): Promise<Reports> {
 }
 
 export async function deleteReports(reportId: string) {
-  const response = await fetch(
-    "https://reports-api.vercel.app/reports/" + reportId,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch("http://localhost:8000/reports/" + reportId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   return response.json();
 }
