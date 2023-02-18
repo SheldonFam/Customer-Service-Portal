@@ -15,7 +15,7 @@ export async function fetchData(input: RequestInfo, init?: RequestInit) {
 }
 
 export async function getLogInUser(): Promise<User> {
-  const response = await fetchData("http:localhost:8000/users", {
+  const response = await fetchData("https://reports-api.vercel.app/users", {
     method: "GET",
   });
   return response.json();
@@ -28,13 +28,16 @@ export interface SignUpCredentials {
 }
 
 export async function signUp(credentials: SignUpCredentials): Promise<User> {
-  const response = await fetchData("http://localhost:8000/users/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    "https://reports-api.vercel.app/users/signup",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
@@ -44,19 +47,25 @@ export interface LogInCredentials {
 }
 
 export async function login(credentials: LogInCredentials): Promise<User> {
-  const response = await fetchData("http://localhost:8000/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetchData(
+    "https://reports-api.vercel.app/users/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
   return response.json();
 }
 
 export async function logout() {
-  const response = await fetchData("http://localhost:8000/users/logout", {
-    method: "POST",
-  });
+  const response = await fetchData(
+    "https://reports-api.vercel.app/users/logout",
+    {
+      method: "POST",
+    }
+  );
   return response;
 }
