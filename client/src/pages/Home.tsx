@@ -1,4 +1,4 @@
-import { LoginPage } from "./loginPage";
+import { LoginPage } from "./LoginPage";
 import { LogoutPage } from "./LogoutPage";
 import { User } from "../models/user";
 
