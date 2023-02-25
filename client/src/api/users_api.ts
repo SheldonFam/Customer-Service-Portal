@@ -1,21 +1,19 @@
 import { User } from "../models/user";
+import { reportApiBaseUrl } from "./api-constant";
 
-const reportApi = "https://reports-api.vercel.app";
-const localhost = "http://localhost:8000";
-
-export async function fetchData(input: RequestInfo, init?: RequestInit) {
+async function fetchData(input: RequestInfo, init?: RequestInit) {
   const response = await fetch(input, init);
   if (response.ok) {
     return response;
   } else {
-    const errorBody = await response.json();
-    const errorMessage = errorBody.console.error();
-    throw Error(errorMessage);
+    throw Error(
+      "Request failed with status: " + response.status + response.statusText
+    );
   }
 }
 
 export async function getLogInUser(): Promise<User> {
-  const response = await fetchData("https://reports-api.vercel.app/users", {
+  const response = await fetchData(`${reportApiBaseUrl}/users`, {
     method: "GET",
   });
   return response.json();
@@ -28,16 +26,13 @@ export interface SignUpCredentials {
 }
 
 export async function signUp(credentials: SignUpCredentials): Promise<User> {
-  const response = await fetchData(
-    "https://reports-api.vercel.app/users/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }
-  );
+  const response = await fetchData(`${reportApiBaseUrl}/users/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
   return response.json();
 }
 
@@ -47,25 +42,19 @@ export interface LogInCredentials {
 }
 
 export async function login(credentials: LogInCredentials): Promise<User> {
-  const response = await fetchData(
-    "https://reports-api.vercel.app/users/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }
-  );
+  const response = await fetchData(`${reportApiBaseUrl}/users/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
   return response.json();
 }
 
 export async function logout() {
-  const response = await fetchData(
-    "https://reports-api.vercel.app/users/logout",
-    {
-      method: "POST",
-    }
-  );
+  const response = await fetch(`${reportApiBaseUrl}/users/logout`, {
+    method: "POST",
+  });
   return response;
 }

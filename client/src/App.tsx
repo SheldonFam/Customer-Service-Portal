@@ -19,10 +19,9 @@ function App() {
     async function fetchLoggedInUser() {
       try {
         const user = await UsersApi.getLogInUser();
-        console.log(user);
         setLogInUser(user);
       } catch (error) {
-        console.log(error);
+        throw error;
       }
     }
     fetchLoggedInUser();
@@ -36,24 +35,24 @@ function App() {
         onSignUpClicked={() => setShowSignUpModal(true)}
         onLogoutSuccessful={() => setLogInUser(null)}
       />
-      {showSignUpModal && (
-        <SignUpModal
-          onDismiss={() => setShowSignUpModal(false)}
-          onSignUpSuccessful={(user) => {
-            setLogInUser(user);
-            setShowSignUpModal(false);
-          }}
-        />
-      )}
-      {showLoginModal && (
-        <LoginModal
-          onDismiss={() => setShowLoginModal(false)}
-          onLoginSuccessful={(user) => {
-            setLogInUser(user);
-            setShowLoginModal(false);
-          }}
-        />
-      )}
+
+      <SignUpModal
+        isOpen={showSignUpModal}
+        onDismiss={() => setShowSignUpModal(false)}
+        // onSignUpSuccessful={(user) => {
+        //   setLogInUser(user);
+        //   setShowSignUpModal(false);
+        // }}
+      />
+
+      <LoginModal
+        isOpen={showLoginModal}
+        onDismiss={() => setShowLoginModal(false)}
+        onLoginSuccessful={(user) => {
+          setLogInUser(user);
+          setShowLoginModal(false);
+        }}
+      />
       <Routes>
         <Route path="/" element={<HomePage logInUser={logInUser} />} />
         <Route path={`/report/:reportId`} element={<ReportPage />} />

@@ -11,8 +11,13 @@ const router = express.Router();
 
 router
   .get("/", getAllReports)
+
   .get("/:id", getReport)
+
   .post("/", createReport)
+
   .patch("/:id", updateReport)
+
   .delete("/:id", deleteReport);
+
 export default router;

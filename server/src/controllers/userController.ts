@@ -1,22 +1,20 @@
 import { Response, Request, NextFunction } from "express";
 import { userModel } from "../models/userModel";
-import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 
 export const getAuthenticatedUser = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  const authUser = req.session.userId;
-  console.log(authUser);
+): Promise<void> => {
+  console.log(req.session, "from getAuth req session");
+  console.log(req.session.id, "from getAuth req session id");
+  console.log(req.session.userId, "from getAuth req session userid");
   try {
-    if (!authUser) {
-      throw createHttpError("User not authenticated");
-    }
     const user = await userModel.findById(req.session.userId).select("+email");
-    console.log(user);
+    console.log(user, "user from getAuthenticatedUser");
     res.status(200).json(user);
+    console.log("from getAuthenticatedUser?");
   } catch (error) {
     next(error);
   }
@@ -33,24 +31,27 @@ export const signUp = async (
 
   try {
     if (!userName || !email || !passwordRaw) {
-      throw createHttpError(400, "Parameters missing");
+      res.status(400).json({ message: "Parameters missing" });
+      return;
     }
 
     const existingUserName = await userModel.findOne({ userName: userName });
 
     if (existingUserName) {
-      throw createHttpError(
-        409,
-        "Username already taken. Please choose a different one or log in instead."
-      );
+      res.status(409).json({
+        message:
+          "Username already taken. Please choose a different one or log in instead.",
+      });
+      return;
     }
     const existingEmail = await userModel.findOne({ email: email });
 
     if (existingEmail) {
-      throw createHttpError(
-        409,
-        "A user with this email address already exists. Please choose a different one or log in instead."
-      );
+      res.status(409).json({
+        message:
+          "A user with this email address already exists. Please log in instead.",
+      });
+      return;
     }
 
     const passwordHashed = await bcrypt.hash(passwordRaw, 10);
@@ -62,7 +63,7 @@ export const signUp = async (
     });
 
     req.session.userId = newUser._id;
-
+    console.log(newUser._id, "from signup");
     res.status(200).json(newUser);
   } catch (error) {
     next(error);
@@ -79,7 +80,8 @@ export const login = async (
 
   try {
     if (!userName || !password) {
-      throw createHttpError(400, "Parameters missing");
+      res.status(400).json({ message: "Parameters missing" });
+      return;
     }
 
     const user = await userModel
@@ -87,16 +89,18 @@ export const login = async (
       .select("+password +email");
 
     if (!user) {
-      throw createHttpError(401, "Invalid credentials");
+      res.status(401).json({ message: "Invalid credentials,user?" });
+      return;
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      throw createHttpError(401, "Invalid credentials");
+      res.status(401).json({ message: "Invalid credentials,password?" });
+      return;
     }
-
     req.session.userId = user._id;
+    console.log(user._id, "from login");
     res.status(201).json(user);
   } catch (error) {
     next(error);
@@ -104,11 +108,11 @@ export const login = async (
 };
 
 export const logout = (req: Request, res: Response, next: NextFunction) => {
-  req.session.destroy((error) => {
+  return req.session.destroy((error) => {
     if (error) {
       next(error);
     } else {
-      res.sendStatus(200);
+      res.send("user logged out successfully");
     }
   });
 };

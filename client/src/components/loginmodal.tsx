@@ -9,11 +9,13 @@ import * as UsersApi from "../api/users_api";
 interface LoginModalProps {
   onDismiss: () => void;
   onLoginSuccessful: (user: User) => void;
+  isOpen: boolean;
 }
 
 export const LoginModal = ({
   onDismiss,
   onLoginSuccessful,
+  isOpen,
 }: LoginModalProps) => {
   const initialData = {
     userName: "",
@@ -34,22 +36,19 @@ export const LoginModal = ({
   async function handleSubmit(credentials: LogInCredentials) {
     try {
       const user = await UsersApi.login(credentials);
-      console.log(user);
       onLoginSuccessful(user);
     } catch (error) {
       alert(error);
-      console.log(error);
     }
   }
   const handleSubmitLog = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit(data);
-    console.log(data);
-    // setData(initialData);
+    setData(initialData);
   };
 
   return (
-    <Modal isOpen={true} title={"Log In"}>
+    <Modal isOpen={isOpen} title={"Log In"}>
       <form onSubmit={handleSubmitLog}>
         <Input
           label="UserName"

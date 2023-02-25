@@ -22,8 +22,8 @@ export const LoginPage = () => {
         const reports = await ReportsApi.fetchAllReports();
         setReports(reports);
       } catch (error) {
-        console.log(error);
         setShowLoadingError(true);
+        throw error;
       } finally {
         setLoading(false);
       }
@@ -46,6 +46,7 @@ export const LoginPage = () => {
 
   //Form submit initial Data
   const initialData = {
+    userId: "",
     reportNo: "",
     _id: "",
     name: "",

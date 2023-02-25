@@ -30,6 +30,7 @@ export const ReportPage = () => {
     work: "",
     date: "",
     actions: "",
+    userId: "",
   });
 
   const params = useParams();
@@ -39,9 +40,6 @@ export const ReportPage = () => {
   const returnToHome = () => {
     navigate("/");
   };
-
-  // const { reportId } = useParams();
-  // const data = reports.find((report) => report._id === reportId);
 
   useEffect(() => {
     async function fetchData() {
@@ -85,7 +83,7 @@ export const ReportPage = () => {
       );
       console.log("updated success");
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -103,7 +101,7 @@ export const ReportPage = () => {
       );
       console.log("successful delete");
     } catch (error) {
-      console.log(error);
+      throw error;
     }
     navigate("/");
   }

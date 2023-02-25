@@ -1,6 +1,6 @@
 export const LogoutPage = () => {
   return (
-    <div className="px-6 w-full h-full m-auto min-h-screen">
+    <div className="flex flex-col items-center">
       <p>Please login to see your reports</p>
     </div>
   );
