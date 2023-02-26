@@ -15,6 +15,12 @@ const app = express();
 const PORT = env.PORT || 8000;
 
 connectDB();
+// app.use(
+//   cors({
+//     origin: "http://127.0.0.1:5173",
+//     credentials: true,
+//   })
+// );
 app.use(cors());
 app.use(express.json());
 app.use(
@@ -36,20 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/reports", requiresAuth, reportRoutes);
 app.use("/users", userRoutes);
-app.use(
-  session({
-    secret: env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 60 * 60 * 1000,
-    },
-    rolling: true,
-    store: MongoStore.create({
-      mongoUrl: env.MONGO_CONNECTION_STRING,
-    }),
-  })
-);
+
 app.get("/", function (req, res, next) {
   console.log(req.session);
   res.json({ message: "Server is connect sucessfully!" });

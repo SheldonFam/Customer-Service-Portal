@@ -7,14 +7,10 @@ export const getAuthenticatedUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  console.log(req.session, "from getAuth req session");
-  console.log(req.session.id, "from getAuth req session id");
-  console.log(req.session.userId, "from getAuth req session userid");
   try {
     const user = await userModel.findById(req.session.userId).select("+email");
     console.log(user, "user from getAuthenticatedUser");
     res.status(200).json(user);
-    console.log("from getAuthenticatedUser?");
   } catch (error) {
     next(error);
   }
