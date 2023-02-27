@@ -1,21 +1,8 @@
 import { Reports } from "../models/reports";
-
-const reportApi = "https://reports-api.vercel.app";
-const localhost = "http://localhost:8000";
-
-export async function fetchData(input: RequestInfo, init?: RequestInit) {
-  const response = await fetch(input, init);
-  if (response.status === 200) {
-    return response;
-  } else {
-    const errorBody = await response.json();
-    const errorMessage = errorBody.console.error();
-    throw Error(errorMessage);
-  }
-}
+import { reportApiBaseUrl } from "./api-constant";
 
 export async function fetchAllReports(): Promise<Reports[]> {
-  const response = await fetchData("http://localhost:8000/reports", {
+  const response = await fetch(`${reportApiBaseUrl}/reports`, {
     method: "GET",
   });
   const reports = await response.json();
@@ -26,12 +13,9 @@ export async function fetchAllReports(): Promise<Reports[]> {
 export async function fetchSingleReport(
   reportId: string | undefined
 ): Promise<Reports> {
-  const response = await fetchData(
-    "http://localhost:8000/reports/" + reportId,
-    {
-      method: "GET",
-    }
-  );
+  const response = await fetch(`${reportApiBaseUrl}/reports/` + reportId, {
+    method: "GET",
+  });
   if (!response.ok) {
     const message = `An error has occurred: ${response.statusText}`;
     window.alert(message);
@@ -48,7 +32,7 @@ export async function fetchSingleReport(
 // }
 
 export async function createReport(newReport: Reports): Promise<Reports> {
-  const response = await fetch("http://localhost:8000/reports", {
+  const response = await fetch(`${reportApiBaseUrl}/reports/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -60,7 +44,7 @@ export async function createReport(newReport: Reports): Promise<Reports> {
 
 export async function updateReport(updateData: Reports): Promise<Reports> {
   const response = await fetch(
-    "http://localhost:8000/reports/" + updateData._id,
+    `${reportApiBaseUrl}/reports/` + updateData._id,
     {
       method: "PATCH",
       headers: {
@@ -78,7 +62,7 @@ export async function updateReport(updateData: Reports): Promise<Reports> {
 }
 
 export async function deleteReports(reportId: string) {
-  const response = await fetch("http://localhost:8000/reports/" + reportId, {
+  const response = await fetch(`${reportApiBaseUrl}/reports/` + reportId, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

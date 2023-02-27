@@ -11,7 +11,7 @@ export const NavBarLogOutView = ({
   onLoginClicked,
 }: NavBarLoggedOutViewProps) => {
   return (
-    <div className="flex flex-col lg:flex-row lg:ml-auto gap-4">
+    <div className="flex flex-row lg:ml-auto gap-4">
       <Button variant={"primary"} onClick={onSignUpClicked}>
         Sign Up
       </Button>

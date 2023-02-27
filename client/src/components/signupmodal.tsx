@@ -8,12 +8,14 @@ import * as UsersApi from "../api/users_api";
 
 interface SignUpModalProps {
   onDismiss: () => void;
-  onSignUpSuccessful: (user: User) => void;
+  // onSignUpSuccessful: (user: User) => void;
+  isOpen: boolean;
 }
 
 export const SignUpModal = ({
   onDismiss,
-  onSignUpSuccessful,
+  // onSignUpSuccessful,
+  isOpen,
 }: SignUpModalProps) => {
   const initialData = {
     userName: "",
@@ -34,21 +36,20 @@ export const SignUpModal = ({
   async function handleSubmit(credentials: SignUpCredentials) {
     try {
       const user = await UsersApi.signUp(credentials);
-      console.log(user);
-      onSignUpSuccessful(user);
+      // onSignUpSuccessful(user);
+      onDismiss();
+      alert("New user sign up successfully.");
     } catch (error) {
       alert(error);
-      console.log(error);
     }
   }
   const handleSubmitLog = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit(data);
-    console.log(data);
     setData(initialData);
   };
   return (
-    <Modal isOpen={true} title={"Sign Up"}>
+    <Modal isOpen={isOpen} title={"Sign Up"}>
       <form onSubmit={handleSubmitLog}>
         <Input
           label="UserName"
@@ -60,7 +61,7 @@ export const SignUpModal = ({
         ></Input>
         <Input
           label="Email"
-          type="text"
+          type="email"
           name={"email"}
           value={email}
           onChange={handleInputChange}

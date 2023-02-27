@@ -10,6 +10,16 @@ import { Reports } from "../models/reports";
 
 export const ReportPage = () => {
   const [reports, setReports] = useState<Array<Reports>>([]);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [reportData, setReportData] = useState({
+    reportNo: "",
+    _id: "",
+    name: "",
+    work: "",
+    date: "",
+    actions: "",
+  });
 
   useEffect(() => {
     async function fetchAllReports() {
@@ -23,39 +33,52 @@ export const ReportPage = () => {
     fetchAllReports();
   }, []);
 
-  const [reportData, setReportData] = useState({
-    reportNo: "",
-    _id: "",
-    name: "",
-    work: "",
-    date: "",
-    actions: "",
-  });
-
-  const params = useParams();
-
   const navigate = useNavigate();
 
   const returnToHome = () => {
     navigate("/");
   };
 
-  // const { reportId } = useParams();
-  // const data = reports.find((report) => report._id === reportId);
+  const params = useParams();
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchReportData() {
       const { reportId } = params;
       const response = await ReportsApi.fetchSingleReport(reportId);
       setReportData(response);
     }
-    fetchData();
+    fetchReportData();
     return;
   }, [params.reportId]);
 
-  const [openEditModal, setOpenEditModal] = useState(false);
+  async function updateReport(updateReport: Reports) {
+    try {
+      await ReportsApi.updateReport(updateReport);
+      setReports(
+        reports.map((existingReport) =>
+          existingReport._id === updateReport._id
+            ? updateReport
+            : existingReport
+        )
+      );
+      alert(`Report ${updateReport.reportNo}  updated successfully.`);
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  async function deleteReport(report: Reports) {
+    try {
+      await ReportsApi.deleteReports(report._id);
+      setReports(
+        reports.filter((existingReport) => existingReport._id !== report._id)
+      );
+      alert(`Report ${report.reportNo} delete successfully.`);
+    } catch (error) {
+      throw error;
+    }
+    navigate("/");
+  }
 
   const handleEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setReportData((prevData) => ({
@@ -73,40 +96,11 @@ export const ReportPage = () => {
     }));
   };
 
-  async function updateReport(updateReport: Reports) {
-    try {
-      await ReportsApi.updateReport(updateReport);
-      setReports(
-        reports.map((existingReport) =>
-          existingReport._id === updateReport._id
-            ? updateReport
-            : existingReport
-        )
-      );
-      console.log("updated success");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setOpenEditModal(false);
     updateReport(reportData);
   };
-
-  async function deleteReport(report: Reports) {
-    try {
-      await ReportsApi.deleteReports(report._id);
-      setReports(
-        reports.filter((existingReport) => existingReport._id !== report._id)
-      );
-      console.log("successful delete");
-    } catch (error) {
-      console.log(error);
-    }
-    navigate("/");
-  }
 
   return (
     <div className="px-6 py-10 md:px-12 min-h-screen max-w-3xl m-auto text-xs md:text-base">
