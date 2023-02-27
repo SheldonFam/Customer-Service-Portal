@@ -4,7 +4,6 @@ import { Schema } from "mongoose";
 const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const reportSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, required: true },
   reportNo: Number,
   date: String,
   name: String,

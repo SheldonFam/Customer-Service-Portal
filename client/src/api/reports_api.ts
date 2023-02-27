@@ -2,9 +2,8 @@ import { Reports } from "../models/reports";
 import { reportApiBaseUrl } from "./api-constant";
 
 export async function fetchAllReports(): Promise<Reports[]> {
-  const response = await fetch(`${reportApiBaseUrl}/reports/`, {
+  const response = await fetch(`${reportApiBaseUrl}/reports`, {
     method: "GET",
-    credentials: "include",
   });
   const reports = await response.json();
   const allReports = reports.reports;
@@ -16,7 +15,6 @@ export async function fetchSingleReport(
 ): Promise<Reports> {
   const response = await fetch(`${reportApiBaseUrl}/reports/` + reportId, {
     method: "GET",
-    credentials: "include",
   });
   if (!response.ok) {
     const message = `An error has occurred: ${response.statusText}`;
@@ -39,7 +37,6 @@ export async function createReport(newReport: Reports): Promise<Reports> {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
     body: JSON.stringify(newReport),
   });
   return response.json();
@@ -53,7 +50,6 @@ export async function updateReport(updateData: Reports): Promise<Reports> {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify({
         name: updateData.name,
         work: updateData.work,
@@ -71,7 +67,6 @@ export async function deleteReports(reportId: string) {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
   });
   return response.json();
 }
