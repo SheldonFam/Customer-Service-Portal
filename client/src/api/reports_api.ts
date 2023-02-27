@@ -24,14 +24,14 @@ export async function fetchSingleReport(
   return singleReport;
 }
 
-// export interface ReportInput {
-//   name: string;
-//   work: string;
-//   date: string;
-//   actions: string;
-// }
+export interface ReportInput {
+  name: string;
+  work: string;
+  date: string;
+  actions: string;
+}
 
-export async function createReport(newReport: Reports): Promise<Reports> {
+export async function createReport(newReport: ReportInput): Promise<Reports> {
   const response = await fetch(`${reportApiBaseUrl}/reports/`, {
     method: "POST",
     headers: {
