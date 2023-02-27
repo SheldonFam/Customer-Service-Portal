@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 config();
 import env from "./utils/validateEnv";
+
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
