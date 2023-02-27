@@ -1,17 +1,16 @@
 import { config } from "dotenv";
 config();
 import env from "./utils/validateEnv";
-
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { connectDB } from "./db/db";
 import reportRoutes from "./routes/reportRouter";
 
+connectDB();
+
 const app = express();
 const PORT = env.PORT || 8000;
-
-connectDB();
 
 app.use(cors());
 app.use(express.json());
@@ -20,7 +19,6 @@ app.use(bodyParser.json());
 app.use("/reports", reportRoutes);
 
 app.get("/", function (req, res, next) {
-  console.log(req.session);
   res.json({ message: "Server is connect sucessfully!" });
 });
 
