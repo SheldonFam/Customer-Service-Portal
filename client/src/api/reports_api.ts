@@ -1,8 +1,11 @@
 import { Reports } from "../models/reports";
 import { reportApiBaseUrl } from "./api-constant";
 
+const reportApi = "https://reports-api.vercel.app";
+const localhost = "http://localhost:8000";
+
 export async function fetchAllReports(): Promise<Reports[]> {
-  const response = await fetch(`${reportApiBaseUrl}/reports`, {
+  const response = await fetch(`${reportApi}/reports`, {
     method: "GET",
   });
   const reports = await response.json();
@@ -13,7 +16,7 @@ export async function fetchAllReports(): Promise<Reports[]> {
 export async function fetchSingleReport(
   reportId: string | undefined
 ): Promise<Reports> {
-  const response = await fetch(`${reportApiBaseUrl}/reports/` + reportId, {
+  const response = await fetch(`${reportApi}/reports/` + reportId, {
     method: "GET",
   });
   if (!response.ok) {
@@ -32,7 +35,7 @@ export interface ReportInput {
 }
 
 export async function createReport(newReport: ReportInput): Promise<Reports> {
-  const response = await fetch(`${reportApiBaseUrl}/reports/`, {
+  const response = await fetch(`${reportApi}/reports/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,26 +46,23 @@ export async function createReport(newReport: ReportInput): Promise<Reports> {
 }
 
 export async function updateReport(updateData: Reports): Promise<Reports> {
-  const response = await fetch(
-    `${reportApiBaseUrl}/reports/` + updateData._id,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: updateData.name,
-        work: updateData.work,
-        date: updateData.date,
-        actions: updateData.actions,
-      }),
-    }
-  );
+  const response = await fetch(`${reportApi}/reports/` + updateData._id, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: updateData.name,
+      work: updateData.work,
+      date: updateData.date,
+      actions: updateData.actions,
+    }),
+  });
   return response.json();
 }
 
 export async function deleteReports(reportId: string) {
-  const response = await fetch(`${reportApiBaseUrl}/reports/` + reportId, {
+  const response = await fetch(`${reportApi}/reports/` + reportId, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
