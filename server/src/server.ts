@@ -16,9 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/reports", reportRoutes);
 
-// app.get("/", function (req, res, next) {
-//   res.json({ message: "Server is connect sucessfully!" });
-// });
+app.get("/", function (req, res, next) {
+  res.json({ message: "Server is connect sucessfully!" });
+});
 
 //Handling error status
 app.use((req, res, next) => {
