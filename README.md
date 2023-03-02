@@ -31,10 +31,37 @@ Download and install Node.js
 
 ### Installing
 
-1.Clone this repo.
-`    git clone https://github.com/SheldonFam/customer-service-portal.git
-   `
-2.Install all the dependencies in both client and server folder.
-`    npm install
-   `
-3.Add a .env.local file in project root (next to .env file) with all the similar parameters specified in .env file. Those parameters are obtained from https://www.mongodb.com/basics/mongodb-atlas-tutorial.
+- 1.Clone this repo.
+
+  ```
+  git clone https://github.com/SheldonFam/customer-service-portal.git
+  ```
+
+- 2.Install all the dependencies in both client and server folder.
+
+  Client
+
+  ```
+  cd frontend
+  npm install
+  ```
+
+  Server
+
+  ```
+  cd server
+  npm install
+  ```
+
+- 3.Add a .env.local file in folder client (next to .env file) with your API endpoint.
+
+  ```
+  VITE_REPORT_API=YOUR API ENDPOINT
+  ```
+
+- 4.Add a .env file in folder server with below parameters.
+
+  ```
+  PORT=4000
+  MONGO_URL=mongodb+server://user:password@clustername.yex0vey.mongodb.net/collectionname?retryWrites=true&wmajority
+  ```
