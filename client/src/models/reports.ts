@@ -1,4 +1,5 @@
 export interface Reports {
+  userId: string;
   reportNo: string;
   _id: string;
   name: string;

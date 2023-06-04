@@ -13,6 +13,7 @@ export const ReportPage = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [reportData, setReportData] = useState({
+    userId: "",
     reportNo: "",
     _id: "",
     name: "",

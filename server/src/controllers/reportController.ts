@@ -2,22 +2,28 @@ import { Response, Request } from "express";
 import { reportData } from "../models/reportModel";
 
 export const getAllReports = async (
-  req: Request,
+  req: Request | any,
   res: Response
 ): Promise<void> => {
   try {
-    const reports = await reportData.find({});
+    const userId = req.user._id;
+    const reports = await reportData.find({ userId });
     res.status(200).json({ reports });
   } catch (error) {
     res.status(500).json({ message: error });
   }
 };
 
-export const getReport = async (req: Request, res: Response): Promise<void> => {
+export const getReport = async (
+  req: Request | any,
+  res: Response
+): Promise<void> => {
   try {
     const { id } = req.params;
+    const userId = req.user._id;
     const report = await reportData.findOne({
       _id: id,
+      userId: userId,
     });
     res.status(200).json(report);
   } catch (error) {
@@ -26,7 +32,7 @@ export const getReport = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const createReport = async (
-  req: Request,
+  req: Request | any,
   res: Response
 ): Promise<void> => {
   try {
@@ -35,6 +41,7 @@ export const createReport = async (
       work: req.body.work,
       actions: req.body.actions,
       date: req.body.date,
+      userId: req.user._id,
     });
     res.status(200).json(report);
   } catch (error) {
@@ -43,15 +50,20 @@ export const createReport = async (
 };
 
 export const updateReport = async (
-  req: Request,
+  req: Request | any,
   res: Response
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const report = await reportData.findOneAndUpdate({ _id: id }, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const userId = req.user._id;
+    const report = await reportData.findOneAndUpdate(
+      { _id: id, userId: userId },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     res.status(200).json(report);
   } catch (error) {
     res.status(500).json({ message: error });

@@ -6,6 +6,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { connectDB } from "./db/db";
 import reportRoutes from "./routes/reportRouter";
+import userRoutes from "./routes/userRouter";
+import { authorize } from "./middleware/auth";
 
 const app = express();
 const PORT = env.PORT || 8000;
@@ -14,7 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use("/reports", reportRoutes);
+app.use("/reports", authorize, reportRoutes);
+app.use("/users", userRoutes);
 
 app.get("/", function (req, res, next) {
   res.json({ message: "Server is connect sucessfully!" });
