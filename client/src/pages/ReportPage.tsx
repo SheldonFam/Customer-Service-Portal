@@ -178,7 +178,7 @@ export const ReportPage = () => {
         </Modal>
       </div>
       <div>
-        <Modal isOpen={openDeleteModal} title={"Confirm Deletion?"}>
+        <Modal isOpen={openDeleteModal} title={"Delete Report?"}>
           <div>
             Are you sure you want to delete report RN{reportData.reportNo}? This
             action cannot be undone.

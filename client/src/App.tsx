@@ -7,7 +7,7 @@ import { NavBar } from "./components/navbar";
 function App() {
   return (
     <>
-      <NavBar />
+      <NavBar title={"Customer Service Portal"} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path={`/report/:reportId`} element={<ReportPage />} />
