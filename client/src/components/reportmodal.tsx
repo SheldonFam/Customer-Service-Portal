@@ -7,7 +7,7 @@ import { useState } from "react";
 
 interface ReportModalProps {
   createNewReport: (data: Reports) => void;
-  onDismiss: () => void;
+  onDismiss: () => void; // a onClose function?
   isOpen: boolean;
 }
 
@@ -54,7 +54,7 @@ export const ReportModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} title={"Create Report"}>
+    <Modal isOpen={isOpen} title={"Create Report"} onClose={onDismiss}>
       <form onSubmit={handleSubmit}>
         <div id={_id}>
           <Input

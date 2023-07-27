@@ -10,12 +10,16 @@ export default {
 
 const Template: ComponentStory<typeof Modal> = () => {
   const [open, setOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open</Button>
-      <Modal isOpen={open} title={"Title"}>
+      <Modal isOpen={open} title={"Title"} onClose={handleCloseModal}>
         <div>Content</div>
-        <Button onClick={() => setOpen(false)}>Close</Button>
       </Modal>
     </>
   );

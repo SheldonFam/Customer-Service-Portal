@@ -21,6 +21,14 @@ export const ReportPage = () => {
     actions: "",
   });
 
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setOpenDeleteModal(false);
+  };
+
   useEffect(() => {
     async function fetchAllReports() {
       try {
@@ -129,7 +137,11 @@ export const ReportPage = () => {
         </div>
       </div>
       <div>
-        <Modal isOpen={openEditModal} title={"Edit Report"}>
+        <Modal
+          isOpen={openEditModal}
+          title={"Edit Report"}
+          onClose={handleCloseEditModal}
+        >
           <form onSubmit={handleSubmit} id={reportData._id}>
             <Input
               label="Date"
@@ -178,7 +190,11 @@ export const ReportPage = () => {
         </Modal>
       </div>
       <div>
-        <Modal isOpen={openDeleteModal} title={"Delete Report?"}>
+        <Modal
+          isOpen={openDeleteModal}
+          title={"Delete Report?"}
+          onClose={handleCloseDeleteModal}
+        >
           <div>
             Are you sure you want to delete report RN{reportData.reportNo}? This
             action cannot be undone.
